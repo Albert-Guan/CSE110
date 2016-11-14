@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">"More "</string>
+    <string-array name="frequency_array">
+        <item>Hourly</item>
+        <item>Every 8 hours</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Never</item>
+    </string-array>
+</resources>
