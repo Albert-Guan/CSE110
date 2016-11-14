@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Manage your notifications"
+        android:textSize="18sp"
+        android:textAlignment="center" />
+
+    <Switch
+        android:text="Enable push notifications"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/switch1"
+        android:textSize="18sp"
+        android:textAlignment="textStart"
+        android:splitTrack="false" />
+
+</LinearLayout>
