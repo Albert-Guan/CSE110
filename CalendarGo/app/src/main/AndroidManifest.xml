@@ -21,6 +21,7 @@
         <activity
             android:name=".MainActivity">
             android:label ="Map">
+            android:theme="@style/splashScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

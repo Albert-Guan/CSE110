@@ -3,6 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/showDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calendar page"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary" />
+
     <LinearLayout
         android:id="@+id/ll_week"
         android:layout_width="match_parent"
@@ -62,12 +73,5 @@
         android:id="@+id/flipper1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/showDate"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Calendar page"
-        android:textStyle="bold" />
 
 </LinearLayout>

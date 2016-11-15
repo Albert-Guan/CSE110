@@ -13,12 +13,12 @@
             android:id="@+id/personal_profile"
             android:checked="false"
             android:icon="@drawable/ic_email_black"
-            android:title="profile" />
+            android:title="Profile" />
         <item
             android:id="@+id/log_out"
             android:checked="false"
             android:icon="@drawable/ic_email_black"
-            android:title="log_out"
+            android:title="Logout"
             />
     </group>
 </menu>

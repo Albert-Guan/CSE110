@@ -9,7 +9,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <style name="splashScreenTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/logo</item>
+    </style>
     <style name="TitleText">
         <item name="android:textColor">@color/appTitle</item>
         <item name="android:textStyle">bold</item>

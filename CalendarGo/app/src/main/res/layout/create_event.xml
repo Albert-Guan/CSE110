@@ -76,7 +76,8 @@
                     android:id="@+id/datePicker2"
                     android:headerBackground="?attr/colorPrimaryDark"
                     android:layout_height="wrap_content"
-                    android:contextClickable="false" />
+                    android:contextClickable="false"
+                    android:paddingLeft="30dp" />
 
                 <LinearLayout
                     android:orientation="horizontal"

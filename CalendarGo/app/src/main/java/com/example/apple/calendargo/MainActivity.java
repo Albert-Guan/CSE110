@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //setTheme(R.style.splashScreenTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                 String uid = user.getUid();
                                 myRef = database.getReference("Users").child(uid);
 
-                                Toast.makeText(MainActivity.this, "Log in successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "User has logged in successfully", Toast.LENGTH_LONG).show();
 
                                 final TextView username = (TextView) findViewById(R.id.username);
                                 final TextView email = (TextView) findViewById(R.id.email);
@@ -170,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
             else{
             //System.out.println("No log in");
-            Toast.makeText(MainActivity.this,"Non log in model",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,"User is not logged in",Toast.LENGTH_SHORT).show();
             }
 
 
@@ -191,24 +192,24 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onMenuItemSelected(int itemId) {
                 switch (itemId) {
                     case R.id.list_item:
-                        Snackbar.make(coordinatorLayout, "List Selected", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(coordinatorLayout, "List has been selected", Snackbar.LENGTH_LONG).show();
                         f = new ListFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
                         break;
                     case R.id.map_item:
                         f = new MapFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-                        Snackbar.make(coordinatorLayout, "Map Selected", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(coordinatorLayout, "Map has been selected", Snackbar.LENGTH_LONG).show();
                         break;
                     case R.id.calendar_item:
                         f = new CalendarFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-                        Snackbar.make(coordinatorLayout, "Calendar Selected", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(coordinatorLayout, "Calendar has been selected", Snackbar.LENGTH_LONG).show();
                         break;
                     case R.id.more_item:
                         f = new MoreFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-                        Snackbar.make(coordinatorLayout, "More Selected", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(coordinatorLayout, "Settings have been selected", Snackbar.LENGTH_LONG).show();
                         break;
                 }
             }
@@ -258,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.log_in:
-                        Toast.makeText(getApplicationContext(), "Log In", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT).show();
                         Intent logInIntent = new Intent(MainActivity.this, LoginActivity.class);
                         MainActivity.this.startActivity(logInIntent);
                         return true;

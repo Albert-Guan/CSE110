@@ -6,13 +6,13 @@
     <string name="search_hint">Type and Search</string>
     <string name="menu_search">Search</string>
     <string name="sign_up">Sign Up</string>
-    <string name="log_in">Log In</string>
+    <string name="log_in">Log in</string>
     <string name="closeDrawer">Navigation View</string>
     <string name="openDrawer">Navigation View Closed</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
     <string name="title_activity_type_view">TypeViewActivity</string>
     <string name="title_activity_veiw_by_type">VeiwByTypeActivity</string>
-    <string name="google_maps_key">AIzaSyBU7srH1aRhFrR3-qu3y7R31E5tlkks6dg</string>
+    <string name="google_maps_key">AIzaSyCvpoRqw0jG9VJQVQDOax2ng1hth4KyEAY</string>
     <string-array name="frequency_array">
         <item>Hourly</item>
         <item>Every 8 hours</item>
