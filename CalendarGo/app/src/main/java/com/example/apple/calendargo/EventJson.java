@@ -7,12 +7,16 @@ package com.example.apple.calendargo;
 
 import android.content.Context;
 
+import com.google.firebase.database.DatabaseReference;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventJson {
 
@@ -74,6 +78,16 @@ public class EventJson {
         }
 
         return json;
+    }
+
+    public static void saveEventToFirebase(DatabaseReference myRef, Event event){
+
+        Map<String,Event> map = new HashMap<String,Event>();
+
+        map.put(event.name,event);
+
+        myRef.child(event.type).child(event.name).setValue(map);
+
     }
 
 
