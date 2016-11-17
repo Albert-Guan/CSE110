@@ -19,6 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import static com.google.android.gms.wearable.DataMap.TAG;
 
 /**
@@ -43,21 +45,41 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng ucsd = new LatLng(32.88, -117.23);
+        ArrayList<Event> markersArray = new ArrayList<Event>();
+
+        markersArray = EventJson.getEventsFromFile("mostPop.json",getContext());
+
+
+
+        for( int i = 0; i < markersArray.size(); i++)
+        {
+            createMarker(markersArray.get(i).getLongitude(), markersArray.get(i).getLatitude(), markersArray.get(i).getName());
+
+        }
+
+        //if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        // TODO: Consider calling
+        //    ActivityCompat#requestPermissions
+        // here to request the missing permissions, and then overriding
+        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+        //                                          int[] grantResults)
+        // to handle the case where the user grants the permission. See the documentation
+        // for ActivityCompat#requestPermissions for more details.
+        //  return;
+        //}
+
+        LatLng ucsd = new LatLng(32.8801, -117.2340);
         mMap.addMarker(new MarkerOptions().position(ucsd).title("UCSD"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ucsd, 18));
 
-        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
+
+        // mMap.setMyLocationEnabled(true);
     }
+
+    private void createMarker( double longitude, double latitude, String name )
+    {
+        mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name));
+    }
+
+
 }
