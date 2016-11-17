@@ -20,6 +20,7 @@ public class VeiwByTypeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.splashScreenTheme);
         setContentView(R.layout.activity_veiw_by_type);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
