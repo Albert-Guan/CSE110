@@ -106,27 +106,36 @@
 
                 </LinearLayout>
 
-                <TextView
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView11" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal|center">
 
-                <TextView
-                    android:text="Enter date of event:"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:id="@+id/textView4"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:fontFamily="sans-serif-smallcaps" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView11" />
 
-                <DatePicker
-                    android:layout_width="match_parent"
-                    android:id="@+id/datePicker2"
-                    android:headerBackground="?attr/colorPrimaryDark"
-                    android:layout_height="wrap_content"
-                    android:contextClickable="false"
-                    android:paddingLeft="30dp" />
+                    <TextView
+                        android:text="Enter date of event:"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:id="@+id/textView4"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-smallcaps" />
+
+                    <DatePicker
+                        android:layout_width="wrap_content"
+                        android:id="@+id/datePicker2"
+                        android:headerBackground="?attr/colorPrimaryDark"
+                        android:layout_height="match_parent"
+                        android:contextClickable="false"
+                        android:paddingLeft="0dp"
+                        android:layout_gravity="center_vertical|center_horizontal|center" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"

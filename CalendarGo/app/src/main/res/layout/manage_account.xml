@@ -6,9 +6,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Manage your account here"
+        android:text="Manage account settings"
         android:textSize="18sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-smallcaps" />
 
     <TextView
         android:text="Display name"
