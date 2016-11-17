@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
                                 Toast.makeText(MainActivity.this, "User has logged in successfully", Toast.LENGTH_LONG).show();
 
-                                final TextView username = (TextView) findViewById(R.id.username);
                                 final TextView email = (TextView) findViewById(R.id.email);
 
 
@@ -153,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                             List<String> profile = (List<String>) dataSnapshot.getValue();
                                             Toast.makeText(MainActivity.this, profile.toString(), Toast.LENGTH_LONG).show();
 
-                                            username.setText(profile.get(1));
                                             email.setText(profile.get(0));
                                         }
                                     }

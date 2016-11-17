@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:ems="10"
+        android:ems="20"
         android:hint="Password"
         android:id="@+id/etPasswordLogin"
         android:layout_marginTop="10dp"

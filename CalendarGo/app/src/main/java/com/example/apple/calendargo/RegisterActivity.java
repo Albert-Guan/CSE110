@@ -1,15 +1,14 @@
 package com.example.apple.calendargo;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,8 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etPassword;
-    private EditText etUsername;
     private EditText etPhone;
+    private EditText etPassword_confirm;
 
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -59,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etPhone = (EditText) findViewById(R.id.etPhone);
-        etUsername = (EditText) findViewById((R.id.etUsername));
+        etPassword_confirm = (EditText) findViewById(R.id.etPasswordConfirm);
 
         registerButton.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -79,10 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
         String phone = etPhone.getText().toString();
-        String username = etUsername.getText().toString();
+        String confirm_password = etPassword_confirm.getText().toString();
 
         userProfile.add(email);
-        userProfile.add(username);
         userProfile.add(phone);
 
         if (TextUtils.isEmpty(email)) {
@@ -99,6 +97,12 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (! password.equals(confirm_password)){
+            Toast.makeText(getApplicationContext(), "Passwords are different, please check it again! ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -121,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                             myRef.child(uid).setValue(userProfile);
 
                             Toast.makeText(RegisterActivity.this,user.getEmail()+" registered successfully. ",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             intent.putExtra("login",true);
                             startActivity(intent);
                             finish();
