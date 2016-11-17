@@ -14,6 +14,10 @@ public class Event implements Comparable<Event> {
     public int persons;
     public String url;
     public String image;
+    public String type;
+    public String organizer;
+    public String address;
+
 
     public Event(){
         name = "Event name";
@@ -24,18 +28,26 @@ public class Event implements Comparable<Event> {
         persons = 0;
         image = null;
         url = "http://www.google.com";
+        type = "Others";
+        organizer = "Some one";
+
     }
 
-    public Event(String name, String description, String time, double longitude, double latitude, int persons, String url, String image){
+    public Event(String organizer, String type, String address, String time, String name ){
         this();
-        this.name = name;
-        this.description = description;
+        this.organizer = organizer;
+        this.address = address;
         this.time = time;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.persons = persons;
-        this.url = url;
-        this.image = image;
+        this.type = type;
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImage(String Image){
+        this.image = Image;
     }
 
     public void addPerson(){
@@ -65,6 +77,12 @@ public class Event implements Comparable<Event> {
 
     public int getPersons(){
         return persons;
+    }
+
+    public double getLongitude() {return longitude; }
+
+    public double getLatitude() {
+        return latitude;
     }
 
     @Override
