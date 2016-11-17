@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private boolean hasLoggedIn;
+    public static boolean hasLoggedIn;
 
     private FirebaseAuth auth;
     private ProgressBar progressBar;
@@ -206,7 +206,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                         Snackbar.make(coordinatorLayout, "Calendar has been selected", Snackbar.LENGTH_LONG).show();
                         break;
                     case R.id.more_item:
+                        Bundle args = new Bundle();
+                        args.putBoolean("hasLoggedIn", hasLoggedIn);
                         f = new MoreFragment();
+                        f.setArguments(args);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
                         Snackbar.make(coordinatorLayout, "Settings have been selected", Snackbar.LENGTH_LONG).show();
                         break;

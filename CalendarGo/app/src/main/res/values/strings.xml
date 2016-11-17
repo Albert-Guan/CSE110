@@ -20,4 +20,15 @@
         <item>Weekly</item>
         <item>Never</item>
     </string-array>
+    <string-array name="category_array">
+        <item>Athletics</item>
+        <item>Free food</item>
+        <item>Music</item>
+        <item>Kid friendly/Family</item>
+        <item>Pet friendly</item>
+        <item>Workshops</item>
+        <item>Party</item>
+        <item>Other</item>
+    </string-array>
+    <string name="title_activity_test">test</string>
 </resources>

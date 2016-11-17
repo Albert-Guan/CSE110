@@ -38,6 +38,8 @@ public class MoreFragment extends Fragment {
 
     private Activity acitivity;
 
+    private boolean loggedIn;
+
 
     @Nullable
 
@@ -50,44 +52,28 @@ public class MoreFragment extends Fragment {
 
         final Context context = getActivity().getApplicationContext();
 
+        loggedIn = getArguments().getBoolean("hasLoggedIn");
 
         mListViewType = (ListView) v.findViewById(R.id.listViewType);
 
 
         final String[] types = new String[]{"Create event", "Manage account", "Notifications", "Data & Sync", "About"};
+        final String[] guest_types = new String[]{"Notifications", "Data & Sync", "About"};
+
+        sizeOfTypes = getLoggedIn() ? types.length : guest_types.length;
 
 
-        sizeOfTypes = types.length;
-
-
-        //typesAdapter adapter_type = new typesAdapter(getContext(), types);
-
-
-        //mListViewType.setAdapter(adapter_type);
-
-
-        // mListViewPop = (ListView) v.findViewById(R.id.listViewPop);
-
-
-        //popAdapter adapter_list = new popAdapter(getContext(),events);
-
-
-        //mListViewPop.setAdapter(adapter_list);
-
-
-        settingsAdapter typesAdapter = new settingsAdapter(getContext(), types);
+        settingsAdapter typesAdapter = new settingsAdapter(getContext(), getLoggedIn() ? types : guest_types);
 
 
         mListViewType.setAdapter(typesAdapter);
-
-
         mListViewType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String tabName = types[position];
+                String tabName = getLoggedIn() ? types[position] : guest_types[position];
                 Fragment newFragment;
                 FragmentManager fragmentManager;
                 FragmentTransaction fragmentTransaction;
@@ -147,4 +133,9 @@ public class MoreFragment extends Fragment {
 
         return v;
     }
+
+    private boolean getLoggedIn() {
+        return loggedIn;
+    }
+
 }
