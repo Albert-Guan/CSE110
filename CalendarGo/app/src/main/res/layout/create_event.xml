@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText7"
+                    android:id="@+id/organizer"
                     android:textAlignment="viewStart"
                     android:lineSpacingExtra="30sp"
                     android:singleLine="true"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText3"
+                    android:id="@+id/event_name"
                     android:selectAllOnFocus="true"
                     android:textAlignment="viewStart"
                     android:singleLine="true"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText4"
+                    android:id="@+id/address"
                     android:selectAllOnFocus="true"
                     android:textAlignment="viewStart"
                     android:singleLine="true"
@@ -101,7 +101,7 @@
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/spinner2"
+                        android:id="@+id/category"
                         android:layout_weight="1" />
 
                 </LinearLayout>

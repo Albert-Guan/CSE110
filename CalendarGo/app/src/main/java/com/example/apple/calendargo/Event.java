@@ -28,9 +28,9 @@ public class Event implements Comparable<Event> {
         persons = 0;
         image = null;
         url = "http://www.google.com";
-        type = "Others";
+        type = "Other";
         organizer = "Some one";
-
+        address = "UCSD";
     }
 
     public Event(String organizer, String type, String address, String time, String name ){

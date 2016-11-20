@@ -12,13 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Date;
 
 /**
  * Created by jd on 11/11/16.
  */
 
 public class CreateEventFragment extends Fragment implements View.OnClickListener {
+
+    EditText etorganizer, etevent_name, etaddress;
+    Spinner spinner;
+    DatePicker datepicker;
+
 
     @Nullable
     @Override
@@ -29,10 +42,17 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
         Button b3 = (Button) v.findViewById(R.id.button3);
         Button b2 = (Button) v.findViewById(R.id.button2);
 
+
         b3.setOnClickListener(this);
         b2.setOnClickListener(this);
 
-        Spinner spinner = (Spinner) v.findViewById(R.id.spinner2);
+        etorganizer = (EditText) v.findViewById(R.id.organizer);
+        etevent_name = (EditText) v.findViewById(R.id.event_name);
+        etaddress = (EditText) v.findViewById(R.id.address);
+
+        datepicker = (DatePicker) v.findViewById(R.id.datePicker2);
+
+        spinner = (Spinner) v.findViewById(R.id.category);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.category_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -46,6 +66,17 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
         switch(v.getId()) {
             // create event button
             case R.id.button3:
+                String organizer = etorganizer.getText().toString();
+                String event_name = etevent_name.getText().toString();
+                String address = etaddress.getText().toString();
+                String type = spinner.getSelectedItem().toString();
+                int day = datepicker.getDayOfMonth();
+                int month = datepicker.getMonth()+1;
+                int year = datepicker.getYear();
+                String date = month+"-"+day+"-"+year;
+                Event current_event = new Event(organizer, type, address, date, event_name);
+
+                EventJson.saveEventToFirebase(current_event);
 
                 break;
             // cancel button

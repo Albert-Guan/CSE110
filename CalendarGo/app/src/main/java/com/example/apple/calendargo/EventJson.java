@@ -8,6 +8,7 @@ package com.example.apple.calendargo;
 import android.content.Context;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EventJson {
@@ -28,6 +30,7 @@ public class EventJson {
     private int persons;
     private String url;
     private String image;
+
 
     public static ArrayList<Event> getEventsFromFile(String filename, Context context){
         final ArrayList<Event> eventList = new ArrayList<Event>();
@@ -80,7 +83,13 @@ public class EventJson {
         return json;
     }
 
-    public static void saveEventToFirebase(DatabaseReference myRef, Event event){
+    public static void saveEventToFirebase(Event event){
+
+        FirebaseDatabase database;
+        DatabaseReference myRef;
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Events");
 
         Map<String,Event> map = new HashMap<String,Event>();
 
@@ -90,5 +99,16 @@ public class EventJson {
 
     }
 
+    public static List<Event> getEventFromFirebaseByType(String type){
+        ArrayList<Event> events = new ArrayList<Event>();
+
+
+        return events;
+    }
+
+    public static Event getEventFromFirebaseByName(String name){
+        Event event = new Event();
+        return event;
+    }
 
 }

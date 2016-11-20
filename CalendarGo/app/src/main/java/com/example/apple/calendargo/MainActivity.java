@@ -40,6 +40,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabSelectedListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -114,7 +116,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         //System.out.println("What the heck!!!");
 
 
+        /*ArrayList<Event> events = EventJson.getEventsFromFile("mostPop.json",getBaseContext());
 
+        for (Event event:events) EventJson.saveEventToFirebase(event);*/
 
         if (!emailAddress.isEmpty() && !password.isEmpty()) {
             hasLoggedIn = true;
