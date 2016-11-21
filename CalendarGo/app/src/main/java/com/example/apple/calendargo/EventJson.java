@@ -126,8 +126,11 @@ public class EventJson {
                     //System.out.println("LogIn Successfully\n");
                     Map<String,Map<String,Map<String,Object>>> type_events = (Map<String,Map<String,Map<String,Object>>>) dataSnapshot.getValue();
 
+                    if (type_events == null) return;
+
                     Collection<Map<String,Map<String,Object>>> string_events = type_events.values();
 
+                    if (string_events == null) return;
 
                     for (Map<String,Map<String,Object>> map : string_events){
                         for (Map<String,Object> event : map.values()){
