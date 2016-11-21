@@ -91,6 +91,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                     break;
                 }
                 else {
+                    System.out.println("Create Event - type: "+type);
                     Event current_event = new Event(organizer, type, address, date, event_name);
                     EventJson.saveEventToFirebase(current_event);
                 }

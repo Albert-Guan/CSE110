@@ -250,6 +250,7 @@ public class EventJson {
                     new_event.latitude = (Double) event.get("latitude");
                     new_event.name = (String)event.get("name");
                     new_event.image = (String) event.get("image");
+                    new_event.type = (String) event.get("type");
 
                     System.out.println(new_event.toString());
 
@@ -298,6 +299,7 @@ public class EventJson {
                         //new_event.latitude = (Double) event.get("latitude");
                         new_event.name = (String)event.get("name");
                         new_event.image = (String) event.get("image");
+                        new_event.type = (String) event.get("type");
 
                         System.out.println(new_event.toString());
 

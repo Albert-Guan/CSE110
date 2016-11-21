@@ -76,10 +76,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 //markersArray = EventJson.getEventsFromFile("mostPop.json",getContext());
                 markersArray = ej.getAllEvents(dataSnapshot,getActivity());
 
-                for(int i = 0; i < markersArray.size(); i++)
+                for(int i = 1; i < markersArray.size(); i++)
                 {
                     Float colorValue = 0.0f;
                     String colorType = markersArray.get(i).type;
+
+                    System.out.println(markersArray.get(i));
+                    System.out.println(markersArray.get(i).type);
 
                     switch(colorType)
                     {
