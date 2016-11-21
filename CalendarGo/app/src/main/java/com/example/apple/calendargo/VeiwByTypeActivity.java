@@ -8,6 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class VeiwByTypeActivity extends AppCompatActivity {
@@ -15,7 +21,7 @@ public class VeiwByTypeActivity extends AppCompatActivity {
     private ListView mListView;
     private String type;
     private ArrayList<Event> eventList;
-    private popAdapter adapter_list;
+    private EventJson ej;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +38,33 @@ public class VeiwByTypeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mListView = (ListView) findViewById(R.id.type_view_list);
+        ej = new EventJson();
 
-        eventList = EventJson.getEventFromFirebaseByType(title);
+        FirebaseDatabase database;
+        DatabaseReference myRef;
 
-        popAdapter adapter_list = new popAdapter(getBaseContext(), eventList);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Events").child(title);
 
-        mListView.setAdapter(adapter_list);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                eventList = ej.getEventsFromDataSnapShot(dataSnapshot);
+
+                System.out.println("ViewByType: "+eventList);
+
+                popAdapter adapter_list = new popAdapter(getBaseContext(), eventList);
+
+                mListView.setAdapter(adapter_list);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }

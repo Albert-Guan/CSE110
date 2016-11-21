@@ -17,10 +17,18 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -60,6 +68,13 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
     private int currentNum;
     private boolean isStart;
     private int isBefore=0;
+    private ListView mListView;
+    private EventJson ej;
+    private String date;
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef, typeRef;
+
 
     public CalendarFragment() {
         Date date = new Date();
@@ -109,6 +124,7 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
         selectPostion = dateAdapter.getTodayPosition();
         gridView.setSelection(selectPostion);
         flipper1.addView(gridView, 0);
+        mListView = (ListView) v.findViewById(R.id.calendar_list);
         return v;
     }
 
@@ -137,6 +153,32 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                 selectPostion = position;
                 dateAdapter.setSeclection(position);
                 dateAdapter.notifyDataSetChanged();
+                date = dateAdapter.getCurrentMonth(selectPostion)+"-"+dayNumbers[position] + "-"+dateAdapter.getCurrentYear(selectPostion);
+                System.out.println("date"+date);
+                ej = new EventJson();
+
+
+
+                database = FirebaseDatabase.getInstance();
+                myRef = database.getReference("Events");
+
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<Event> events = ej.getAllEvents(dataSnapshot,getActivity());
+                        events = ej.checkDate(date,events);
+                        popAdapter events_by_date = new popAdapter(getContext(),events);
+
+                        mListView.setAdapter(events_by_date);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 tvDate.setText(dateAdapter.getCurrentMonth(selectPostion) + "."
                         + dayNumbers[position] + "."+dateAdapter.getCurrentYear(selectPostion));
             }

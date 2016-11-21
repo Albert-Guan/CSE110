@@ -3,6 +3,7 @@ package com.example.apple.calendargo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabSelectedListener;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -373,6 +375,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return false;
     }
 
+
+   /* public void geoLocate(View v) throws IOException{
+        Geocoder gc = new Geocoder(this);
+
+        String location
+        List<Address> list = gc.getFromLocation("Warren Lecture Hall", 1);
+
+    }
+ */
 
 
 

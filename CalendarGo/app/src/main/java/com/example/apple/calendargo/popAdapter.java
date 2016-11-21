@@ -69,7 +69,7 @@ public class popAdapter extends BaseAdapter {
 
         eventName.setText(thisEvent.getName());
         eventDistance.setText(thisEvent.address);
-        eventPersons.setText(thisEvent.time);
+        eventPersons.setText(thisEvent.date);
 
         ImageView thumbnailImageView =
                 (ImageView) rowView.findViewById(R.id.event_photo);

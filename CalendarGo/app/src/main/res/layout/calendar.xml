@@ -69,9 +69,15 @@
             android:gravity="center"
             android:text="Sat." />
     </LinearLayout>
+
     <ViewFlipper
         android:id="@+id/flipper1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendar_list"></ListView>
 
 </LinearLayout>

@@ -35,7 +35,9 @@ public class ListFragment extends Fragment {
 
         mListViewType = (ListView) v.findViewById(R.id.listViewType);
 
-        final String[] types = new String[] {"Athletics","Free food","Music","Kid frendly/family","Pet friendly","Workshops","Party","Other","The most pop 3 events: "};
+        final String[] types = new String[] {"Athletics","Free food","Music","Family","Pet friendly","Workshops","Party","Other","The most pop 3 events: "};
+        //final String[] types;
+        //types = getActivity().getResources().getStringArray(R.array.category_array);
 
         sizeOfTypes = types.length;
 
@@ -48,9 +50,6 @@ public class ListFragment extends Fragment {
 
         events = EventJson.getEventsFromFile("mostPop.json",context);
 
-        for (Event e : events){
-            System.out.println(e.toString());
-        }
 
         //popAdapter adapter_list = new popAdapter(getContext(),events);
 

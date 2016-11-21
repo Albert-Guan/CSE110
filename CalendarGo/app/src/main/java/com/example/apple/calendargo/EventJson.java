@@ -5,9 +5,12 @@ package com.example.apple.calendargo;
  * Define the method to extract event object from the Json file
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.google.android.gms.awareness.snapshot.internal.Snapshot;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +39,7 @@ public class EventJson {
     private int persons;
     private String url;
     private String image;
-
+    private ArrayList<Event> events;
 
     public static ArrayList<Event> getEventsFromFile(String filename, Context context){
         final ArrayList<Event> eventList = new ArrayList<Event>();
@@ -51,12 +54,13 @@ public class EventJson {
                 JSONObject curr = events.getJSONObject(i);
                 event.name =curr.getString("name");
                 event.description = curr.getString("description");
-                event.time = curr.getString("time");
+                event.date = curr.getString("date");
                 event.image = curr.getString("image");
                 event.persons = curr.getInt("persons");
                 event.longitude = curr.getDouble("longitude");
                 event.latitude = curr.getDouble("latitude");
                 event.type = curr.getString("type");
+                event.address = curr.getString("address");
 
                 eventList.add(event);
             }
@@ -69,6 +73,23 @@ public class EventJson {
 
         return eventList;
     }
+
+    public static ArrayList<Event> getEventsFromFileDate(String filename, String date, Context context){
+        ArrayList<Event> temp_events;
+        temp_events = getEventsFromFile(filename,context);
+        ArrayList<Event> events = new ArrayList<Event>();
+        for (Event e : temp_events){
+            System.out.println("date is: "+date);
+            System.out.println("event date is: "+e.date);
+            if (date.equals(e.date)){
+                System.out.println("EventJson - find events in the date");
+                events.add(e);
+            }
+        }
+
+        return events;
+    }
+
 
     private static String loadJsonFromAsset(String filename, Context context){
         String json = null;
@@ -107,6 +128,7 @@ public class EventJson {
     }
 
     public static ArrayList<Event> getEventFromFirebaseByType(final String type){
+
         final ArrayList<Event> events = new ArrayList<Event>();
 
         FirebaseDatabase database;
@@ -123,6 +145,7 @@ public class EventJson {
                 if (dataSnapshot == null && dataSnapshot.getValue() == null) {
                     System.out.println("No records");
                 } else {
+
                     //System.out.println("LogIn Successfully\n");
                     Map<String,Map<String,Map<String,Object>>> type_events = (Map<String,Map<String,Map<String,Object>>>) dataSnapshot.getValue();
 
@@ -136,10 +159,10 @@ public class EventJson {
                         for (Map<String,Object> event : map.values()){
                             Event new_event = new Event();
 
-                            System.out.println(event.get("longitude"));
+                            //System.out.println(event.get("longitude"));
 
                             new_event.address = (String)event.get("address");
-                            new_event.time = (String)event.get("time");
+                            new_event.date = (String)event.get("date");
                             new_event.longitude = (Double)event.get("longitude");
                             new_event.latitude = (Double) event.get("latitude");
                             new_event.name = (String)event.get("name");
@@ -166,12 +189,138 @@ public class EventJson {
             }
         });
 
+        System.out.println("EventJson - getEventsByType: "+events);
+
+
         return events;
     }
 
+    public ArrayList<Event>  getEventsSpecificDate(String date, Activity activity){
+        ArrayList<Event> events = new ArrayList<Event>();
+        ArrayList<Event> temp;
+        String[] types;
+        types = activity.getResources().getStringArray(R.array.category_array);
+
+        for (String type : types){
+            System.out.println("EventJson - type: "+type);
+            temp = getEventFromFirebaseByType(type);
+
+            for (Event e : temp){
+                System.out.println("date is: "+date);
+                System.out.println("event date is: "+e.date);
+                if (date.equals(e.date)){
+                    System.out.println("EventJson - find events in the date");
+                    events.add(e);
+                }
+            }
+        }
+
+        return events;
+    }
     public static Event getEventFromFirebaseByName(String name){
         Event event = new Event();
         return event;
     }
 
+    public ArrayList<Event> getEventsFromDataSnapShot(DataSnapshot dataSnapshot){
+        events = new ArrayList<Event>();
+
+        if (dataSnapshot == null && dataSnapshot.getValue() == null) {
+            System.out.println("No records");
+        } else {
+
+            //System.out.println("LogIn Successfully\n");
+            Map<String,Map<String,Map<String,Object>>> type_events = (Map<String,Map<String,Map<String,Object>>>) dataSnapshot.getValue();
+
+            if (type_events == null) return events;
+
+            Collection<Map<String,Map<String,Object>>> string_events = type_events.values();
+
+            if (string_events == null) return events;
+
+            for (Map<String,Map<String,Object>> map : string_events){
+                for (Map<String,Object> event : map.values()){
+                    Event new_event = new Event();
+
+                    //System.out.println(event.get("longitude"));
+
+                    new_event.address = (String)event.get("address");
+                    new_event.date = (String)event.get("date");
+                    new_event.longitude = (Double)event.get("longitude");
+                    new_event.latitude = (Double) event.get("latitude");
+                    new_event.name = (String)event.get("name");
+                    new_event.image = (String) event.get("image");
+
+                    System.out.println(new_event.toString());
+
+                    events.add(new_event);
+                }
+            }
+                    /*for(Map<String,Event> map:profile){
+                        Set<Map.Entry<String,Event>> set = map.entrySet();
+                        for (Map.Entry<String,Event> e:set){
+                            events.add(e.getValue());
+                        }
+                    }*/
+
+        }
+
+        return events;
+    }
+
+
+    public ArrayList<Event> getAllEvents(DataSnapshot dataSnapshot,Activity activity){
+        events = new ArrayList<Event>();
+        String[] types;
+        types = activity.getResources().getStringArray(R.array.category_array);
+
+        if (dataSnapshot == null && dataSnapshot.getValue() == null) {
+            System.out.println("No records");
+        }else{
+
+            for (Map<String,Map<String,Map<String,Object>>> type_events : (((Map<String,Map<String,Map<String,Map<String,Object>>>>)dataSnapshot.getValue()).values())){
+
+                if (type_events == null) return events;
+
+                Collection<Map<String,Map<String,Object>>> string_events = type_events.values();
+
+                if (string_events == null) return events;
+
+                for (Map<String,Map<String,Object>> map : string_events){
+                    for (Map<String,Object> event : map.values()){
+                        Event new_event = new Event();
+
+                        //System.out.println(event.get("longitude"));
+
+                        new_event.address = (String)event.get("address");
+                        new_event.date = (String)event.get("date");
+                        //new_event.longitude = (Double)event.get("longitude");
+                        //new_event.latitude = (Double) event.get("latitude");
+                        new_event.name = (String)event.get("name");
+                        new_event.image = (String) event.get("image");
+
+                        System.out.println(new_event.toString());
+
+                        events.add(new_event);
+                    }
+                }
+            }
+        }
+
+        return events;
+
+    }
+
+    public ArrayList<Event> checkDate(String date, ArrayList<Event> events){
+        ArrayList<Event> new_events = new ArrayList<Event>();
+
+        for (Event e : events){
+            if (date.equals(e.date)){
+                new_events.add(e);
+            }
+        }
+
+        return new_events;
+
+    }
 }

@@ -8,7 +8,7 @@ package com.example.apple.calendargo;
 public class Event implements Comparable<Event> {
     public String name;
     public String description;
-    public  String time;
+    public  String date;
     public double longitude;
     public double latitude;
     public int persons;
@@ -23,7 +23,7 @@ public class Event implements Comparable<Event> {
     public Event(){
         name = "Event name";
         description = "Event Description";
-        time = "Mar-12 -2016";
+        date = "Mar-12-2016";
         longitude = 32.8801;
         latitude = 117.2340;
         persons = 0;
@@ -35,11 +35,11 @@ public class Event implements Comparable<Event> {
         //colorValue = 0.0f;
     }
 
-    public Event(String organizer, String type, String address, String time, String name){
+    public Event(String organizer, String type, String address, String date, String name){
         this();
         this.organizer = organizer;
         this.address = address;
-        this.time = time;
+        this.date = date;
         this.type = type;
         this.name = name;
     }
@@ -68,8 +68,8 @@ public class Event implements Comparable<Event> {
         return description;
     }
 
-    public String getTime(){
-        return time;
+    public String getDate(){
+        return date;
     }
 
 
@@ -100,6 +100,6 @@ public class Event implements Comparable<Event> {
     }
 
     public String toString(){
-        return name+" will happen at "+time+"\n";
+        return name+" will happen at "+date+"\n";
     }
 }
