@@ -1,5 +1,6 @@
 package com.example.apple.calendargo;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,9 +76,55 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 int month = datepicker.getMonth()+1;
                 int year = datepicker.getYear();
                 String date = month+"-"+day+"-"+year;
-                Event current_event = new Event(organizer, type, address, date, event_name);
 
-                EventJson.saveEventToFirebase(current_event);
+                if (organizer.equals("") ||
+                        event_name.equals("") ||
+                        address.equals("") ||
+                        type.equals("")) {
+
+                    new AlertDialog.Builder(getActivity())
+                            //.setIcon(android.R.drawable.ic_dialog_info)
+                            .setTitle("Empty event details")
+                            .setMessage("Please fill out all of the fields before creating an event")
+                            .setPositiveButton("Ok", null)
+                            .show();
+                    break;
+                }
+                else {
+                    Event current_event = new Event(organizer, type, address, date, event_name);
+                    EventJson.saveEventToFirebase(current_event);
+                }
+
+
+                new AlertDialog.Builder(getActivity())
+                        //.setIcon(android.R.drawable.ic_dialog_info)
+                        .setTitle("Event created!")
+                        .setMessage("Event " + event_name + " has been successfully added to the events list.")
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                Bundle args = new Bundle();
+                                args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
+                                Fragment newFragment = new MoreFragment();
+                                newFragment.setArguments(args);
+
+                                fragmentTransaction.replace(R.id.frame, newFragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+
+                        })
+                        /*.setNegativeButton("Manage events", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                getActivity().finish();
+                            }
+                        })*/
+                        .show();
 
                 break;
             // cancel button
