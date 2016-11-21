@@ -16,10 +16,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.android.gms.wearable.DataMap.TAG;
 
@@ -36,6 +39,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceStates){
         View v = inflater.inflate(R.layout.map, null,false);
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
+
+
         mapFragment.getMapAsync(this);
         return v;
     }
@@ -49,13 +54,52 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         markersArray = EventJson.getEventsFromFile("mostPop.json",getContext());
 
-
-
-        for( int i = 0; i < markersArray.size(); i++)
+        for(int i = 0; i < markersArray.size(); i++)
         {
-            createMarker(markersArray.get(i).getLongitude(), markersArray.get(i).getLatitude(), markersArray.get(i).getName());
+            Float colorValue = 0.0f;
+            String colorType = markersArray.get(i).type;
 
+            switch(colorType)
+            {
+                case "Athletics" :
+                    colorValue = 10.0f;
+                    break;
+                case "Free food" :
+                    colorValue = 50.0f;
+                    break;
+                case "Music" :
+                    colorValue = 100.0f;
+                    break;
+                case "Kid friendly/Family" :
+                    colorValue = 200.0f;
+                    break;
+                case "Pet friendly" :
+                    colorValue = 240.0f;
+                    break;
+                case "Workshops" :
+                    colorValue = 270.0f;
+                    break;
+                case "Party" :
+                    colorValue = 300.0f;
+                    break;
+                case "Other" :
+                    colorValue = 340.0f;
+                    break;
+                default:
+                    colorValue = 0.00f;
+                    break;
+            }
+
+            createMarker(markersArray.get(i).getLongitude(), markersArray.get(i).getLatitude(), markersArray.get(i).getName(),colorValue, markersArray.get(i).getDescription());
         }
+
+
+
+        /*for( int i = 0; i < markersArray.size(); i++)
+        {
+            createMarker(markersArray.get(i).getLongitude(), markersArray.get(i).getLatitude(), markersArray.get(i).getName(),markersArray.get(i).colorValue);
+
+        }*/
 
         //if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         // TODO: Consider calling
@@ -76,10 +120,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // mMap.setMyLocationEnabled(true);
     }
 
-    private void createMarker( double longitude, double latitude, String name )
+    private void createMarker( double longitude, double latitude, String name, Float colorVal, String description)
     {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
     }
 
+    /*
+    private void createMarkerNewEvent( double longitude, double latitude, String name )
+    {
+        mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f));
+    }
+    */
 
 }

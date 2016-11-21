@@ -33,7 +33,7 @@ public class VeiwByTypeActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.type_view_list);
 
-        eventList = EventJson.getEventsFromFile("mostPop.json",getBaseContext());
+        eventList = EventJson.getEventFromFirebaseByType(title);
 
         popAdapter adapter_list = new popAdapter(getBaseContext(), eventList);
 

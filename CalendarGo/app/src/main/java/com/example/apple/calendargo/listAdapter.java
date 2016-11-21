@@ -93,7 +93,7 @@ public class listAdapter extends BaseAdapter{
             Event thisEvent = (Event) getItem(position);
 
             eventName.setText(thisEvent.getName());
-            eventDistance.setText("Lat:"+thisEvent.latitude+" Long: "+thisEvent.longitude);
+            eventDistance.setText(thisEvent.address);
             eventPersons.setText(thisEvent.time);
 
             ImageView thumbnailImageView =

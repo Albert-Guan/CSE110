@@ -7,7 +7,8 @@
 			"time": "Nov 11, 2016",
 			"longitude": 32.8798,
 			"latitude": -117.2340,
-			"image": "http://calendar.ucsd.edu/images/uploads/Native-Events-Banner.jpg"
+			"image": "http://calendar.ucsd.edu/images/uploads/Native-Events-Banner.jpg",
+            "type": "Music"
 
 		},
 		{
@@ -17,7 +18,8 @@
 			"time": "Oct 7, 2016",
             "longitude": 32.8799,
             "latitude": -117.2340,
-			"image": "http://calendar.ucsd.edu/images/uploads/Extensions_of_Photography_reception_-_calendar.jpg"
+			"image": "http://calendar.ucsd.edu/images/uploads/Extensions_of_Photography_reception_-_calendar.jpg",
+            "type" : "Party"
 
 		},
 		{
@@ -27,7 +29,8 @@
 			"time": "Oct 25, 2016",
             "longitude": 32.8800,
             "latitude": -117.2340,
-			"image": "http://calendar.ucsd.edu/images/uploads/Miss_You_LIke_Hell_UCSD_banner.png"
+			"image": "http://calendar.ucsd.edu/images/uploads/Miss_You_LIke_Hell_UCSD_banner.png",
+            "type" :"Other"
 
 		}
 	]

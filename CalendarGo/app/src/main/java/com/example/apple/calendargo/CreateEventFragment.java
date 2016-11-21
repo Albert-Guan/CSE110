@@ -34,7 +34,6 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
     Spinner spinner;
     DatePicker datepicker;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceStates) {
@@ -75,6 +74,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 int day = datepicker.getDayOfMonth();
                 int month = datepicker.getMonth()+1;
                 int year = datepicker.getYear();
+
                 String date = month+"-"+day+"-"+year;
 
                 if (organizer.equals("") ||

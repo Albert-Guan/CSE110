@@ -17,6 +17,7 @@ public class Event implements Comparable<Event> {
     public String type;
     public String organizer;
     public String address;
+    //public Float colorValue;
 
 
     public Event(){
@@ -31,9 +32,10 @@ public class Event implements Comparable<Event> {
         type = "Other";
         organizer = "Some one";
         address = "UCSD";
+        //colorValue = 0.0f;
     }
 
-    public Event(String organizer, String type, String address, String time, String name ){
+    public Event(String organizer, String type, String address, String time, String name){
         this();
         this.organizer = organizer;
         this.address = address;
@@ -84,6 +86,11 @@ public class Event implements Comparable<Event> {
     public double getLatitude() {
         return latitude;
     }
+
+    public void setType(String type){
+        this.type = type;
+    }
+    //public float getcolorValue() { return colorValue; }
 
     @Override
     public int compareTo(Event that) {

@@ -35,7 +35,7 @@ public class ListFragment extends Fragment {
 
         mListViewType = (ListView) v.findViewById(R.id.listViewType);
 
-        final String[] types = new String[] {"Athletics","Free food","Music","Kid frendly/family","Pet friendly","Workshops","Party","The most pop 3 events: "};
+        final String[] types = new String[] {"Athletics","Free food","Music","Kid frendly/family","Pet friendly","Workshops","Party","Other","The most pop 3 events: "};
 
         sizeOfTypes = types.length;
 

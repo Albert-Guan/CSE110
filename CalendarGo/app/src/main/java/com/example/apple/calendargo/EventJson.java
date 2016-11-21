@@ -6,9 +6,13 @@ package com.example.apple.calendargo;
  */
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,9 +20,11 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EventJson {
 
@@ -50,6 +56,7 @@ public class EventJson {
                 event.persons = curr.getInt("persons");
                 event.longitude = curr.getDouble("longitude");
                 event.latitude = curr.getDouble("latitude");
+                event.type = curr.getString("type");
 
                 eventList.add(event);
             }
@@ -99,9 +106,62 @@ public class EventJson {
 
     }
 
-    public static List<Event> getEventFromFirebaseByType(String type){
-        ArrayList<Event> events = new ArrayList<Event>();
+    public static ArrayList<Event> getEventFromFirebaseByType(final String type){
+        final ArrayList<Event> events = new ArrayList<Event>();
 
+        FirebaseDatabase database;
+        DatabaseReference myRef, typeRef;
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Events");
+
+        typeRef = myRef.child(type);
+
+        typeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot == null && dataSnapshot.getValue() == null) {
+                    System.out.println("No records");
+                } else {
+                    //System.out.println("LogIn Successfully\n");
+                    Map<String,Map<String,Map<String,Object>>> type_events = (Map<String,Map<String,Map<String,Object>>>) dataSnapshot.getValue();
+
+                    Collection<Map<String,Map<String,Object>>> string_events = type_events.values();
+
+
+                    for (Map<String,Map<String,Object>> map : string_events){
+                        for (Map<String,Object> event : map.values()){
+                            Event new_event = new Event();
+
+                            System.out.println(event.get("longitude"));
+
+                            new_event.address = (String)event.get("address");
+                            new_event.time = (String)event.get("time");
+                            new_event.longitude = (Double)event.get("longitude");
+                            new_event.latitude = (Double) event.get("latitude");
+                            new_event.name = (String)event.get("name");
+                            new_event.image = (String) event.get("image");
+
+                            System.out.println(new_event.toString());
+
+                            events.add(new_event);
+                        }
+                    }
+                    /*for(Map<String,Event> map:profile){
+                        Set<Map.Entry<String,Event>> set = map.entrySet();
+                        for (Map.Entry<String,Event> e:set){
+                            events.add(e.getValue());
+                        }
+                    }*/
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return events;
     }
