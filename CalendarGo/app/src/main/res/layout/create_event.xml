@@ -133,7 +133,9 @@
                         android:layout_height="match_parent"
                         android:contextClickable="false"
                         android:paddingLeft="0dp"
-                        android:layout_gravity="center_vertical|center_horizontal|center" />
+                        android:layout_gravity="center_vertical|center_horizontal|center"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false" />
 
                 </LinearLayout>
 
