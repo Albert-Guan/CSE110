@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private Fragment f;
     private SearchView mSearchView;
     private TextView mStatusView;
+    public static boolean debugEnabled;
+    public static boolean focusEnabled;
 
     //Defining Variables
     private Toolbar toolbar;

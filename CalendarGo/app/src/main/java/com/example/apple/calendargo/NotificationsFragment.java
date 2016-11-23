@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 /**
  * Created by jd on 11/11/16.
@@ -24,8 +26,24 @@ public class NotificationsFragment extends Fragment implements View.OnClickListe
         View v = inflater.inflate(R.layout.notifications, container, false);
 
         Button b7 = (Button) v.findViewById(R.id.button7);
-
         b7.setOnClickListener(this);
+
+        // toggle debug messages
+        Switch s5 = (Switch) v.findViewById(R.id.switch5);
+
+        s5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                MainActivity.debugEnabled = isChecked;
+            }
+        });
+
+        // toggle focus window messages
+        Switch s4 = (Switch) v.findViewById(R.id.switch4);
+        s4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                MainActivity.focusEnabled = isChecked;
+            }
+        });
 
         return v;
     }

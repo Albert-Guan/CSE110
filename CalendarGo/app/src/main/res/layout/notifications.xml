@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.66">
+        android:layout_weight="0.06">
 
         <Switch
             android:text="Push notifications"
@@ -36,6 +36,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView16" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView21"
+            android:textSize="20sp" />
+
         <Switch
             android:text="Debug messages"
             android:layout_width="match_parent"
@@ -52,6 +58,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView17" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView24"
+            android:textSize="20sp" />
+
         <Switch
             android:text="Notify on menu focus"
             android:layout_width="match_parent"
@@ -67,6 +79,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView18" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView25"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <Button

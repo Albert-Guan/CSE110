@@ -37,7 +37,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.98">
+        android:layout_weight="0.06">
 
         <TextView
             android:text="Duration between each data sync"
