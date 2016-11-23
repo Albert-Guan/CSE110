@@ -28,7 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +63,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         FirebaseDatabase database;
-        DatabaseReference myRef, typeRef;
+        DatabaseReference myRef;
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Events");
@@ -74,16 +76,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 ej = new EventJson();
 
                 //markersArray = EventJson.getEventsFromFile("mostPop.json",getContext());
-                markersArray = ej.getAllEvents(dataSnapshot,getActivity());
+                markersArray = ej.checkCurrentDate(ej.getAllEvents(dataSnapshot,getActivity()));
 
-                for(int i = 1; i < markersArray.size(); i++)
+                for(int i = 0; i < markersArray.size(); i++)
                 {
                     Float colorValue = 0.0f;
                     String colorType = markersArray.get(i).type;
-
-                    System.out.println(markersArray.get(i));
-                    System.out.println(markersArray.get(i).type);
-
                     switch(colorType)
                     {
                         case "Athletics" :
@@ -172,6 +170,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public LatLng getLocationFromAddress(Context context, String strAddress)
     {
+        System.out.println("Get Location Function: Address is: "+strAddress);
         Geocoder coder= new Geocoder(context);
         List<Address> address;
         LatLng p1 = null;
@@ -179,6 +178,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         try
         {
             address = coder.getFromLocationName(strAddress, 5);
+
+
             if(address==null)
             {
                 return null;

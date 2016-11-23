@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bottomBar.setItemsFromMenu(R.menu.four_bottons_menu, new OnMenuTabSelectedListener() {
             @Override
             public void onMenuItemSelected(int itemId) {
+                drawerLayout.closeDrawers();
                 switch (itemId) {
                     case R.id.list_item:
                         Snackbar.make(coordinatorLayout, "List has been selected", Snackbar.LENGTH_LONG).show();
