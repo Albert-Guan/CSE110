@@ -36,6 +36,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
     EditText etorganizer, etevent_name, etaddress;
     Spinner spinner;
     DatePicker datepicker;
+    String[] event;
 
     @Nullable
     @Override
@@ -45,7 +46,6 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
         Button b3 = (Button) v.findViewById(R.id.button3);
         Button b2 = (Button) v.findViewById(R.id.button2);
-
 
         b3.setOnClickListener(this);
         b2.setOnClickListener(this);
@@ -70,6 +70,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
         switch(v.getId()) {
             // create event button
             case R.id.button3:
+
                 String organizer = etorganizer.getText().toString();
                 String event_name = etevent_name.getText().toString();
                 String address = etaddress.getText().toString();
@@ -79,6 +80,13 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 int year = datepicker.getYear();
 
                 String date = month+"-"+day+"-"+year;
+
+                event = new String[5];
+                event[0] = organizer;
+                event[1] = event_name;
+                event[2] = address;
+                event[3] = type;
+                event[4] = date;
 
                 // check if fields are all filled out
                 if (organizer.equals("") ||
@@ -108,9 +116,9 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                         break;
                     }
 
-                    System.out.println("Create Event - type: "+type);
-                    Event current_event = new Event(organizer, type, address, date, event_name);
-                    EventJson.saveEventToFirebase(current_event);
+                    //System.out.println("Create Event - type: "+type);
+                    //Event current_event = new Event(organizer, type, address, date, event_name);
+                    //EventJson.saveEventToFirebase(current_event);
                 }
 
 
@@ -128,8 +136,9 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                                 // update login status
                                 Bundle args = new Bundle();
                                 args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
-
+                                args.putStringArray("currEvent",event);
                                 NewEventMapFragment newFragment = new NewEventMapFragment();
+                                newFragment.setArguments(args);
                                 newFragment.setDetails(etaddress.getText().toString(), etevent_name.getText().toString(), 0.0f, null);
 
                                 fragmentTransaction.replace(R.id.frame, newFragment);

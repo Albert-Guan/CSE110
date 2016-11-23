@@ -78,10 +78,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 //markersArray = EventJson.getEventsFromFile("mostPop.json",getContext());
                 markersArray = ej.checkCurrentDate(ej.getAllEvents(dataSnapshot,getActivity()));
 
-                for(int i = 0; i < markersArray.size(); i++)
+                for(Event e : markersArray)
                 {
+                    System.out.println("MapFrag: event: "+e.toString());
+
                     Float colorValue = 0.0f;
-                    String colorType = markersArray.get(i).type;
+                    String colorType = e.type;
                     switch(colorType)
                     {
                         case "Athletics" :
@@ -112,8 +114,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             colorValue = 0.00f;
                             break;
                     }
-
-                    createMarkerByAddress(markersArray.get(i).address, markersArray.get(i).getName(),colorValue, markersArray.get(i).getDescription());
+                    System.out.println("The longitude is: "+e.longitude);
+                    createMarker(Double.parseDouble(e.longitude),Double.parseDouble((e.latitude)),e.name,colorValue,e.description);
+                    //createMarkerByAddress(markersArray.get(i).address,markersArray.get(i).name,colorValue,markersArray.get(i).description);
                 }
             }
 

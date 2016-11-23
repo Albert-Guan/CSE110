@@ -59,8 +59,8 @@ public class EventJson {
                 event.date = curr.getString("date");
                 event.image = curr.getString("image");
                 event.persons = curr.getInt("persons");
-                event.longitude = curr.getDouble("longitude");
-                event.latitude = curr.getDouble("latitude");
+                event.longitude = curr.getString("longitude");
+                event.latitude = curr.getString("latitude");
                 event.type = curr.getString("type");
                 event.address = curr.getString("address");
 
@@ -165,8 +165,8 @@ public class EventJson {
 
                             new_event.address = (String)event.get("address");
                             new_event.date = (String)event.get("date");
-                            new_event.longitude = (Double)event.get("longitude");
-                            new_event.latitude = (Double) event.get("latitude");
+                            new_event.longitude = (String) event.get("longitude");
+                            new_event.latitude = (String) event.get("latitude");
                             new_event.name = (String)event.get("name");
                             new_event.image = (String) event.get("image");
 
@@ -248,8 +248,8 @@ public class EventJson {
 
                     new_event.address = (String)event.get("address");
                     new_event.date = (String)event.get("date");
-                    new_event.longitude = (Double)event.get("longitude");
-                    new_event.latitude = (Double) event.get("latitude");
+                    new_event.longitude = (String)event.get("longitude");
+                    new_event.latitude = (String) event.get("latitude");
                     new_event.name = (String)event.get("name");
                     new_event.image = (String) event.get("image");
                     new_event.type = (String) event.get("type");
@@ -293,17 +293,19 @@ public class EventJson {
                     for (Map<String,Object> event : map.values()){
                         Event new_event = new Event();
 
-                        //System.out.println(event.get("longitude"));
+                        System.out.println("longitude: "+event.get("longitude"));
 
                         new_event.address = (String)event.get("address");
                         new_event.date = (String)event.get("date");
-                        //new_event.longitude = (Double)event.get("longitude");
-                        //new_event.latitude = (Double) event.get("latitude");
+                        new_event.longitude = (String) event.get("longitude");
+                        new_event.latitude = (String) event.get("latitude");
                         new_event.name = (String)event.get("name");
                         new_event.image = (String) event.get("image");
                         new_event.type = (String) event.get("type");
+                        //new_event.longitude = (double) event.get("longitude");
+                        //new_event.latitude = (double) event.get("latitude");
 
-                        System.out.println(new_event.toString());
+                        //System.out.println(new_event.toString());
 
                         events.add(new_event);
                     }

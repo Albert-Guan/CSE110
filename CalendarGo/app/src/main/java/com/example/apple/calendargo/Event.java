@@ -9,8 +9,8 @@ public class Event implements Comparable<Event> {
     public String name;
     public String description;
     public  String date;
-    public double longitude;
-    public double latitude;
+    public String longitude;
+    public String latitude;
     public int persons;
     public String url;
     public String image;
@@ -24,8 +24,8 @@ public class Event implements Comparable<Event> {
         name = "Event name";
         description = "Event Description";
         date = "Mar-12-2016";
-        longitude = 32.8801;
-        latitude = 117.2340;
+        longitude = "32.8801";
+        latitude = "-117.2340";
         persons = 0;
         image = null;
         url = "http://www.google.com";
@@ -79,12 +79,6 @@ public class Event implements Comparable<Event> {
 
     public int getPersons(){
         return persons;
-    }
-
-    public double getLongitude() {return longitude; }
-
-    public double getLatitude() {
-        return latitude;
     }
 
     public void setType(String type){

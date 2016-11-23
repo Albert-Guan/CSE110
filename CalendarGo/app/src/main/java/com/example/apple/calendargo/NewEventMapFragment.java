@@ -60,6 +60,7 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
     private Marker marker;
     private Button button;
     private LatLng position;
+    String[] event;
 
     public void setDetails(String address, String name, float colorVal, String description){
         this.address = address;
@@ -74,6 +75,7 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
         View v = inflater.inflate(R.layout.new_event_map, null,false);
 
         button = (Button) v.findViewById(R.id.location_confirm);
+        event = getArguments().getStringArray("currEvent");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +90,14 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
 
                 try{
                     List<Address> addresses = geocoder.getFromLocation(lat,ltd,1);
-                    String s = addresses.get(0).toString();
-                    System.out.println("New Event Map Frag - Address: "+s);
+                    String address = addresses.get(0).getAddressLine(0);
+
+                    Event current_event = new Event(event[0], event[3], address, event[4], event[1]);
+
+                    current_event.longitude = Double.toString(lat);
+                    current_event.latitude = Double.toString(ltd);
+
+                    EventJson.saveEventToFirebase(current_event);
 
                 } catch(IOException e){
                     System.out.println(e);
