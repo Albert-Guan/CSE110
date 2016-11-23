@@ -125,6 +125,29 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
         gridView.setSelection(selectPostion);
         flipper1.addView(gridView, 0);
         mListView = (ListView) v.findViewById(R.id.calendar_list);
+
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Events");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ej = new EventJson();
+
+                ArrayList<Event> events = ej.getAllEvents(dataSnapshot,getActivity());
+                events = ej.checkCurrentDate(events);
+                popAdapter events_by_date = new popAdapter(getContext(),events);
+
+                mListView.setAdapter(events_by_date);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return v;
     }
 

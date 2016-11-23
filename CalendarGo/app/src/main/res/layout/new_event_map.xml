@@ -18,6 +18,6 @@
         android:text="confirm location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button10"
+        android:id="@+id/location_confirm"
         android:layout_gravity="bottom"/>
 </android.support.design.widget.CoordinatorLayout>
