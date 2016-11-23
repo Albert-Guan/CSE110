@@ -22,8 +22,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -324,5 +326,13 @@ public class EventJson {
 
         return new_events;
 
+    }
+
+    public ArrayList<Event> checkCurrentDate(ArrayList<Event> events){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("M-d-yyyy");
+        String currentDate = sdf.format(date);
+
+        return checkDate(currentDate, events);
     }
 }
