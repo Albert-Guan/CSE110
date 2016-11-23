@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         String emailAddress = pref.getString("emailAddress","");
         String password = pref.getString("password","");
 
-        //System.out.println(pref.getString("emailAddress",""));
+        System.out.println("The log in email address is: "+pref.getString("emailAddress",""));
         //System.out.println(pref.getString("password",""));
         //System.out.println("What the heck!!!");
 
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                             List<String> profile = (List<String>) dataSnapshot.getValue();
                                             Toast.makeText(MainActivity.this, profile.toString(), Toast.LENGTH_LONG).show();
 
-                                            email.setText(profile.get(0));
+                                            email.setText(profile.get(profile.size()-2));
                                         }
                                     }
 
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bottomBar.setItemsFromMenu(R.menu.four_bottons_menu, new OnMenuTabSelectedListener() {
             @Override
             public void onMenuItemSelected(int itemId) {
-                drawerLayout.closeDrawers();
+
                 switch (itemId) {
                     case R.id.list_item:
                         Snackbar.make(coordinatorLayout, "List has been selected", Snackbar.LENGTH_LONG).show();
