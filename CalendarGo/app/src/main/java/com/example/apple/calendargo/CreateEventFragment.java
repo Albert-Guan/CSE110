@@ -19,9 +19,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.*;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -77,6 +80,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
                 String date = month+"-"+day+"-"+year;
 
+                // check if fields are all filled out
                 if (organizer.equals("") ||
                         event_name.equals("") ||
                         address.equals("") ||
@@ -85,12 +89,25 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                     new AlertDialog.Builder(getActivity())
                             //.setIcon(android.R.drawable.ic_dialog_info)
                             .setTitle("Empty event details")
-                            .setMessage("Please fill out all of the fields before creating an event")
+                            .setMessage("Please fill out all of the fields before creating an event.")
                             .setPositiveButton("Ok", null)
                             .show();
                     break;
                 }
                 else {
+                    // check if the address is valid
+                    MapFragment mf = new MapFragment();
+
+                    if (mf.getLocationFromAddress(getContext(), address) == null) {
+                        new AlertDialog.Builder(getActivity())
+                                //.setIcon(android.R.drawable.ic_dialog_info)
+                                .setTitle("Invalid address")
+                                .setMessage("Please enter a real physical address to create a new event.")
+                                .setPositiveButton("Ok", null)
+                                .show();
+                        break;
+                    }
+
                     System.out.println("Create Event - type: "+type);
                     Event current_event = new Event(organizer, type, address, date, event_name);
                     EventJson.saveEventToFirebase(current_event);
@@ -107,10 +124,13 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                             public void onClick(DialogInterface dialog, int which) {
                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                                // update login status
                                 Bundle args = new Bundle();
                                 args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
-                                Fragment newFragment = new MoreFragment();
-                                newFragment.setArguments(args);
+
+                                NewEventMapFragment newFragment = new NewEventMapFragment();
+                                newFragment.setDetails(etaddress.getText().toString(), etevent_name.getText().toString(), 0.0f, null);
 
                                 fragmentTransaction.replace(R.id.frame, newFragment);
                                 fragmentTransaction.addToBackStack(null);

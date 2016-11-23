@@ -57,7 +57,7 @@ public class MoreFragment extends Fragment {
         mListViewType = (ListView) v.findViewById(R.id.listViewType);
 
 
-        final String[] types = new String[]{"Create event", "Manage account", "Notifications", "Data & Sync", "About"};
+        final String[] types = new String[]{"Create event", "Manage events", "Manage account", "Notifications", "Data & Sync", "About"};
         final String[] guest_types = new String[]{"Notifications", "Data & Sync", "About"};
 
         sizeOfTypes = getLoggedIn() ? types.length : guest_types.length;
@@ -83,6 +83,15 @@ public class MoreFragment extends Fragment {
                         fragmentManager = getActivity().getSupportFragmentManager();
                         fragmentTransaction = fragmentManager.beginTransaction();
                         newFragment = new CreateEventFragment();
+
+                        fragmentTransaction.replace(R.id.frame, newFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                        break;
+                    case "Manage events":
+                        fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        newFragment = new ManageEvent();
 
                         fragmentTransaction.replace(R.id.frame, newFragment);
                         fragmentTransaction.addToBackStack(null);
