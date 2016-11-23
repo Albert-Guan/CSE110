@@ -6,11 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/four_buttons_activity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
         >
@@ -21,7 +21,7 @@
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#fff">
         </FrameLayout>
     </LinearLayout>

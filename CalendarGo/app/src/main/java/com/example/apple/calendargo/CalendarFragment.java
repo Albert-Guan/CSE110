@@ -117,7 +117,7 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
         flipper1 = (ViewFlipper) v.findViewById(R.id.flipper1);
         dateAdapter = new DateAdapter(getActivity(), getResources(), currentYear,
                 currentMonth, currentWeek, currentNum, selectPostion,
-                currentWeek == 1 ? true : false);
+                currentWeek == 1);
         addGridView();
         dayNumbers = dateAdapter.getDayNumbers();
         gridView.setAdapter(dateAdapter);
