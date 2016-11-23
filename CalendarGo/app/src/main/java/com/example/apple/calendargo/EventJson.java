@@ -129,6 +129,23 @@ public class EventJson {
 
     }
 
+    public static void saveEventForSpecificUser(String UserId, Event event){
+        FirebaseDatabase database;
+        DatabaseReference myRef;
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("UserEvents");
+
+        Map<String,Event> map = new HashMap<String,Event>();
+
+        map.put(event.name,event);
+
+        myRef.child(UserId).child(event.name).setValue(map);
+
+
+    }
+
+
     public static ArrayList<Event> getEventFromFirebaseByType(final String type){
 
         final ArrayList<Event> events = new ArrayList<Event>();
@@ -277,7 +294,7 @@ public class EventJson {
         String[] types;
         types = activity.getResources().getStringArray(R.array.category_array);
 
-        if (dataSnapshot == null && dataSnapshot.getValue() == null) {
+        if (dataSnapshot == null || dataSnapshot.getValue() == null) {
             System.out.println("No records");
         }else{
 

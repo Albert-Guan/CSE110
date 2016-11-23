@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -97,7 +98,9 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
                     current_event.longitude = Double.toString(lat);
                     current_event.latitude = Double.toString(ltd);
 
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
                     EventJson.saveEventToFirebase(current_event);
+                    EventJson.saveEventForSpecificUser(auth.getCurrentUser().getUid(),current_event);
 
                 } catch(IOException e){
                     System.out.println(e);

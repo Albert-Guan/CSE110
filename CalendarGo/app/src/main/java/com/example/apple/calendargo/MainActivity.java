@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                             List<String> profile = (List<String>) dataSnapshot.getValue();
                                             Toast.makeText(MainActivity.this, profile.toString(), Toast.LENGTH_LONG).show();
 
-                                            email.setText(profile.get(profile.size()-2));
+                                            email.setText(profile.get(profile.size()-1));
                                         }
                                     }
 
@@ -195,6 +195,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bottomBar.setItemsFromMenu(R.menu.four_bottons_menu, new OnMenuTabSelectedListener() {
             @Override
             public void onMenuItemSelected(int itemId) {
+
+                drawerLayout.closeDrawers();
 
                 switch (itemId) {
                     case R.id.list_item:
