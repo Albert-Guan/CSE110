@@ -49,28 +49,6 @@
         />
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="Phone"
-        android:ems="10"
-        android:layout_marginTop="20dp"
-        android:id="@+id/etPhone"
-        android:layout_below="@+id/etPasswordConfirm"
-        android:layout_alignRight="@+id/etEmail"
-        android:layout_alignEnd="@+id/etEmail" />
-
-    <Button
-        android:text="Register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etPhone"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/bReg" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="30dp"
@@ -78,5 +56,14 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
+
+    <Button
+        android:text="Register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bReg"
+        android:layout_below="@+id/etPasswordConfirm"
+        android:layout_toRightOf="@+id/progressBar"
+        android:layout_toEndOf="@+id/progressBar" />
 
 </RelativeLayout>

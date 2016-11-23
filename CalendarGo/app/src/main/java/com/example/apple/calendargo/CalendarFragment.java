@@ -202,8 +202,8 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                     }
                 });
 
-                tvDate.setText(dateAdapter.getCurrentMonth(selectPostion) + "."
-                        + dayNumbers[position] + "."+dateAdapter.getCurrentYear(selectPostion));
+                tvDate.setText("Events on " + dateAdapter.getCurrentMonth(selectPostion) + "/"
+                        + dayNumbers[position] + "/"+dateAdapter.getCurrentYear(selectPostion));
             }
         });
         gridView.setLayoutParams(params);
@@ -293,8 +293,8 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                     currentWeek == 1 ? true : false);
             dayNumbers = dateAdapter.getDayNumbers();
             gridView.setAdapter(dateAdapter);
-            tvDate.setText( dateAdapter.getCurrentMonth(selectPostion) + "."
-                    + dayNumbers[selectPostion] + "."+dateAdapter.getCurrentYear(selectPostion));
+            tvDate.setText("Events on " + dateAdapter.getCurrentMonth(selectPostion) + "/"
+                    + dayNumbers[selectPostion] + "/"+dateAdapter.getCurrentYear(selectPostion));
             gvFlag++;
             flipper1.addView(gridView, gvFlag);
             dateAdapter.setSeclection(selectPostion);

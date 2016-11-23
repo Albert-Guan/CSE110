@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etPassword;
-    private EditText etPhone;
+    //private EditText etPhone;
     private EditText etPassword_confirm;
 
     private ProgressBar progressBar;
@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         //initialize the user interface parameters
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        etPhone = (EditText) findViewById(R.id.etPhone);
+        //etPhone = (EditText) findViewById(R.id.etPhone);
         etPassword_confirm = (EditText) findViewById(R.id.etPasswordConfirm);
 
         registerButton.setOnClickListener(new Button.OnClickListener() {
@@ -77,11 +77,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
-        String phone = etPhone.getText().toString();
+        //String phone = etPhone.getText().toString();
         String confirm_password = etPassword_confirm.getText().toString();
 
         userProfile.add(email);
-        userProfile.add(phone);
+        //userProfile.add(phone);
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (! password.equals(confirm_password)){
-            Toast.makeText(getApplicationContext(), "Passwords are different, please check it again! ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Passwords must match.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the

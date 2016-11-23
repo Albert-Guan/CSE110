@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     FirebaseDatabase database;
     DatabaseReference myRef;
 
+    public static boolean debugEnabled;
+    public static boolean focusEnabled = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                 String uid = user.getUid();
                                 myRef = database.getReference("Users").child(uid);
 
-                                Toast.makeText(MainActivity.this, "User has logged in successfully", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_SHORT).show();
 
                                 final TextView email = (TextView) findViewById(R.id.email);
 
@@ -156,9 +159,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                         } else {
                                             //System.out.println("LogIn Successfully\n");
                                             List<String> profile = (List<String>) dataSnapshot.getValue();
-                                            Toast.makeText(MainActivity.this, profile.toString(), Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(MainActivity.this, profile.toString(), Toast.LENGTH_LONG).show();
 
-                                            email.setText(profile.get(0));
+                                            email.setText(profile.get(profile.size()-1));
                                         }
                                     }
 
@@ -171,10 +174,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             }
                         }
                     });
-            }
-            else{
-            //System.out.println("No log in");
-            Toast.makeText(MainActivity.this,"User is not logged in",Toast.LENGTH_SHORT).show();
             }
 
 
@@ -196,19 +195,27 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 drawerLayout.closeDrawers();
                 switch (itemId) {
                     case R.id.list_item:
-                        Snackbar.make(coordinatorLayout, "List has been selected", Snackbar.LENGTH_LONG).show();
+                        if (focusEnabled)
+                            Snackbar.make(coordinatorLayout, "List", Snackbar.LENGTH_SHORT).show();
+
                         f = new ListFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
                         break;
                     case R.id.map_item:
                         f = new MapFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-                        Snackbar.make(coordinatorLayout, "Map has been selected", Snackbar.LENGTH_LONG).show();
+
+                        if (focusEnabled)
+                            Snackbar.make(coordinatorLayout, "Map", Snackbar.LENGTH_SHORT).show();
+
                         break;
                     case R.id.calendar_item:
                         f = new CalendarFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-                        Snackbar.make(coordinatorLayout, "Calendar has been selected", Snackbar.LENGTH_LONG).show();
+
+                        if (focusEnabled)
+                            Snackbar.make(coordinatorLayout, "Calendar", Snackbar.LENGTH_SHORT).show();
+
                         break;
                     case R.id.more_item:
                         Bundle args = new Bundle();
@@ -216,7 +223,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                         f = new MoreFragment();
                         f.setArguments(args);
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame,f).commit();
-                        Snackbar.make(coordinatorLayout, "Settings have been selected", Snackbar.LENGTH_LONG).show();
+
+                        if (focusEnabled)
+                            Snackbar.make(coordinatorLayout, "Settings", Snackbar.LENGTH_SHORT).show();
+
                         break;
                 }
             }
@@ -266,7 +276,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.log_in:
-                        Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT).show();
                         Intent logInIntent = new Intent(MainActivity.this, LoginActivity.class);
                         MainActivity.this.startActivity(logInIntent);
                         return true;
@@ -276,12 +285,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                         editor.remove("emailAddress");
                         editor.remove("password");
                         editor.apply();
-                        Toast.makeText(MainActivity.this, "Log out", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this,MainActivity.class));
-                        return true;
 
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                        return true;
                     default:
-                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+
                         return true;
                 }
 
