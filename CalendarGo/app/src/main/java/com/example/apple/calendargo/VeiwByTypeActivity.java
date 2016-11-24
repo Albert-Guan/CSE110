@@ -1,11 +1,13 @@
 package com.example.apple.calendargo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -54,9 +56,24 @@ public class VeiwByTypeActivity extends AppCompatActivity {
 
                 System.out.println("ViewByType: "+eventList);
 
-                popAdapter adapter_list = new popAdapter(getBaseContext(), eventList);
+                final popAdapter adapter_list = new popAdapter(getBaseContext(), eventList);
 
                 mListView.setAdapter(adapter_list);
+
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Event current_event = (Event)adapter_list.getItem(i);
+
+                            Intent detail = new Intent(VeiwByTypeActivity.this,DetailTypeActivity.class);
+                            Bundle pass_event = new Bundle();
+
+                            startActivity(detail);
+
+
+
+                    }
+                });
             }
 
             @Override

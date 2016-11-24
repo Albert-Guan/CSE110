@@ -1,5 +1,6 @@
 package com.example.apple.calendargo;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -139,7 +140,7 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
 
                 ArrayList<Event> events = ej.getAllEvents(dataSnapshot,getActivity());
                 events = ej.checkCurrentDate(events);
-                popAdapter events_by_date = new popAdapter(getContext(),events);
+                final popAdapter events_by_date = new popAdapter(getContext(),events);
 
                 if (events.isEmpty())
                     emptyListText.setVisibility(View.VISIBLE);
@@ -147,6 +148,18 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                     emptyListText.setVisibility(View.INVISIBLE);
 
                 mListView.setAdapter(events_by_date);
+
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        Event event = (Event) events_by_date.getItem(i);
+
+                        Intent detail = new Intent(getActivity(), DetailTypeActivity.class);
+
+                        startActivity(detail);
+                    }
+                });
             }
 
             @Override

@@ -39,6 +39,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.apple.calendargo.MainActivity" />
         </activity>
+        <activity
+            android:name=".DetailTypeActivity"
+            android:label="@string/title_activity_detail_type"
+            android:parentActivityName=".VeiwByTypeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.apple.calendargo.VeiwByTypeActivity" />
+        </activity>
+        <activity
+            android:name=".DetailPopActivity"
+            android:label="@string/title_activity_detail_pop"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.apple.calendargo.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

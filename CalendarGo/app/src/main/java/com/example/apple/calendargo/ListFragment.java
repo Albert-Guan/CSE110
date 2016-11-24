@@ -81,15 +81,11 @@ public class ListFragment extends Fragment {
                 }
                 else if (position >= sizeOfTypes){
 
-                            /*Event currEvent = events.get(position-sizeOfTypes);
+                            Event currEvent = events.get(position-sizeOfTypes);
 
-                            Intent detailIntent = new Intent(context, EventDetailActivity.class);
+                            Intent detailIntent = new Intent(context, DetailPopActivity.class);
 
-                            detailIntent.putExtra("title", currEvent.getName());
-                            detailIntent.putExtra("url", currEvent.getUrl());
-
-                            // 4
-                            startActivity(detailIntent);*/
+                            startActivity(detailIntent);
 
                 }
 
