@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ListView
-            android:id="@+id/more_list_view"
+            android:id="@+id/my_event_list_view"
             android:layout_height="match_parent"
             android:layout_width="match_parent"></ListView>
     </LinearLayout>

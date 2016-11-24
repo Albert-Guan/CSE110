@@ -310,7 +310,7 @@ public class EventJson {
                     for (Map<String,Object> event : map.values()){
                         Event new_event = new Event();
 
-                        System.out.println("longitude: "+event.get("longitude"));
+                        //System.out.println("longitude: "+event.get("longitude"));
 
                         new_event.address = (String)event.get("address");
                         new_event.date = (String)event.get("date");
@@ -353,5 +353,39 @@ public class EventJson {
         String currentDate = sdf.format(date);
 
         return checkDate(currentDate, events);
+    }
+
+    public ArrayList<Event> getEventForSpecificUser(DataSnapshot dataSnapshot){
+        ArrayList<Event> events = new ArrayList<Event>();
+
+        if (dataSnapshot != null && dataSnapshot.getValue()!= null) {
+            Map<String,Map<String,Map<String,Object>>> name_name_events = (Map<String,Map<String,Map<String,Object>>>) dataSnapshot.getValue();
+            //System.out.println("EventJson name_events: "+name_name_events);
+
+            Collection<Map<String,Map<String,Object>>> name_events = name_name_events.values();
+            for (Map<String,Map<String,Object>> map : name_events){
+                for (Map<String,Object> event: map.values()) {
+                    Event new_event = new Event();
+
+                    //System.out.println("longitude: "+event.get("longitude"));
+
+                    new_event.address = (String) event.get("address");
+                    new_event.date = (String) event.get("date");
+                    new_event.longitude = (String) event.get("longitude");
+                    new_event.latitude = (String) event.get("latitude");
+                    new_event.name = (String) event.get("name");
+                    new_event.image = (String) event.get("image");
+                    new_event.type = (String) event.get("type");
+                    //new_event.longitude = (double) event.get("longitude");
+                    //new_event.latitude = (double) event.get("latitude");
+
+                    //System.out.println(new_event.toString());
+
+                    events.add(new_event);
+                }
+            }
+        }
+
+        return events;
     }
 }
