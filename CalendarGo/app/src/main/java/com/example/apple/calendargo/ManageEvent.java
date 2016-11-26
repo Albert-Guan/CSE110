@@ -4,10 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ManageEvent extends Fragment {
+public class ManageEvent extends Fragment{
 
     ListView mListView;
 
@@ -30,6 +34,23 @@ public class ManageEvent extends Fragment {
         View v = inflater.inflate(R.layout.fragment_manage_event, container, false);
 
         mListView = (ListView) v.findViewById(R.id.my_event_list_view);
+
+        mListView.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int i, long l) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Bundle args = new Bundle();
+                args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
+                Fragment newFragment = new EditEventFragment();
+                newFragment.setArguments(args);
+
+                fragmentTransaction.replace(R.id.frame, newFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+
+        });
 
         FirebaseDatabase database;
         DatabaseReference myRef;
@@ -63,5 +84,4 @@ public class ManageEvent extends Fragment {
         // Inflate the layout for this fragment
         return v;
     }
-
 }

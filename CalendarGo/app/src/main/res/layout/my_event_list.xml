@@ -14,6 +14,17 @@
         tools:src="@mipmap/ic_launcher"
         />
 
+    <Button
+        android:text="EDIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button12"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="2dp"
+        android:maxLines="1"
+        android:paddingRight="10dp"/>
+
     <TextView
         android:id="@+id/event_distance"
         android:layout_width="wrap_content"
@@ -25,7 +36,7 @@
         android:paddingRight="4dp"
         android:textColor="#000000"
         android:textSize="12sp"
-        tools:text="Detail"
+        android:text=""
         />
 
     <RelativeLayout

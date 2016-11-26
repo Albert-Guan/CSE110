@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,10 +66,14 @@ public class MyEventsAdapter extends BaseAdapter {
         /*ImageView eventPhoto =
                 (ImageView) rowView.findViewById(R.id.event_photo);*/
 
+        Button b12 = (Button)rowView.findViewById(R.id.button12);
+        b12.setClickable(false);
+        b12.setFocusable(false);
+
         Event thisEvent = (Event) getItem(position);
 
         eventName.setText(thisEvent.getName());
-        eventDistance.setText(thisEvent.address);
+        //eventDistance.setText(thisEvent.address);
         eventPersons.setText(thisEvent.date);
 
         ImageView thumbnailImageView =

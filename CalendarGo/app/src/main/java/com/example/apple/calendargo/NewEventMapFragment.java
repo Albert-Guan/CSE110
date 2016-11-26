@@ -110,7 +110,7 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
                         //.setIcon(android.R.drawable.ic_dialog_info)
                         .setTitle("Success!")
                         .setMessage("Event location has been set.")
-                        .setPositiveButton("Finish", new DialogInterface.OnClickListener()
+                        .setPositiveButton("Publish event", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -121,7 +121,7 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
                                 Bundle args = new Bundle();
                                 args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
 
-                                Fragment newFragment = new ListFragment();
+                                Fragment newFragment = new MoreFragment();
 
                                 fragmentTransaction.replace(R.id.frame, newFragment);
                                 fragmentTransaction.addToBackStack(null);

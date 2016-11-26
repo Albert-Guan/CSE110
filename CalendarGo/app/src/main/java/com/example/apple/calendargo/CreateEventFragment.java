@@ -124,9 +124,9 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
                 new AlertDialog.Builder(getActivity())
                         //.setIcon(android.R.drawable.ic_dialog_info)
-                        .setTitle("Event created!")
-                        .setMessage("Event " + event_name + " has been successfully added to the events list.")
-                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener()
+                        .setTitle("Event details set!")
+                        .setMessage("Event details for \"" + event_name + "\" have been successfully set.")
+                        .setPositiveButton("Continue", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
