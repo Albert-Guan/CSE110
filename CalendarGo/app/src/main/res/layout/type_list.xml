@@ -9,6 +9,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
+        android:id="@+id/type_icon"
         android:src="@mipmap/ic_launcher"/>
 
     <TextView

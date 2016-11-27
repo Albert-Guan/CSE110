@@ -50,6 +50,8 @@ public class MyEventsAdapter extends BaseAdapter {
 
         View rowView = mInflater.inflate(R.layout.my_event_list, parent, false);
 
+        String[] types = rowView.getResources().getStringArray(R.array.category_array);
+
         // Get title element
         TextView eventName =
                 (TextView) rowView.findViewById(R.id.event_name);
@@ -78,7 +80,23 @@ public class MyEventsAdapter extends BaseAdapter {
 
         ImageView thumbnailImageView =
                 (ImageView) rowView.findViewById(R.id.event_photo);
-        Picasso.with(thisContext).load(thisEvent.image).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView);
+
+        if(thisEvent.type.equals(types[0]))
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.athletics).into(thumbnailImageView);
+        else if (thisEvent.type.equals(types[1]))
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.food).into(thumbnailImageView);
+        else if (thisEvent.type.equals(types[2]))
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.music).into(thumbnailImageView);
+        else if (thisEvent.type.equals(types[3]))
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.family).into(thumbnailImageView);
+        else if (thisEvent.type.equals(types[4]))
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.pet).into(thumbnailImageView);
+        else if (thisEvent.type.equals(types[5]))
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.workshop).into(thumbnailImageView);
+        else if (thisEvent.type.equals(types[6]))
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.party).into(thumbnailImageView);
+        else
+            Picasso.with(thisContext).load(thisEvent.image).placeholder(R.drawable.others).into(thumbnailImageView);
         return rowView;
     }
 }

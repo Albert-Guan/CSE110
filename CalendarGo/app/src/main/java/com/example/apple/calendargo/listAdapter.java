@@ -60,6 +60,25 @@ public class listAdapter extends BaseAdapter{
             rowView = mInflater.inflate(R.layout.type_list, parent, false);
 
             TextView type = (TextView) rowView.findViewById(R.id.type_list);
+            ImageView icon = (ImageView) rowView.findViewById(R.id.type_icon);
+
+            if (getItem(position) == types[0])
+                icon.setImageResource(R.drawable.athletics);
+            else if (getItem(position) ==types[1])
+                icon.setImageResource(R.drawable.food);
+            else if (getItem(position) ==types[2])
+                icon.setImageResource(R.drawable.music);
+            else if (getItem(position) ==types[3])
+                icon.setImageResource(R.drawable.family);
+            else if (getItem(position) ==types[4])
+                icon.setImageResource(R.drawable.pet);
+            else if (getItem(position) ==types[5])
+                icon.setImageResource(R.drawable.workshop);
+            else if (getItem(position) ==types[6])
+                icon.setImageResource(R.drawable.party);
+            else
+                icon.setImageResource(R.drawable.others);
+
 
             type.setText((String) getItem(position));
 
@@ -98,7 +117,23 @@ public class listAdapter extends BaseAdapter{
 
             ImageView thumbnailImageView =
                     (ImageView) rowView.findViewById(R.id.event_photo);
-            Picasso.with(mContext).load(thisEvent.image).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView);
+
+            if(thisEvent.type.equals(types[0]))
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.athletics).into(thumbnailImageView);
+            else if (thisEvent.type.equals(types[1]))
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.food).into(thumbnailImageView);
+            else if (thisEvent.type.equals(types[2]))
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.music).into(thumbnailImageView);
+            else if (thisEvent.type.equals(types[3]))
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.family).into(thumbnailImageView);
+            else if (thisEvent.type.equals(types[4]))
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.pet).into(thumbnailImageView);
+            else if (thisEvent.type.equals(types[5]))
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.workshop).into(thumbnailImageView);
+            else if (thisEvent.type.equals(types[6]))
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.party).into(thumbnailImageView);
+            else
+                Picasso.with(mContext).load(thisEvent.image).placeholder(R.drawable.others).into(thumbnailImageView);
         }
 
         return rowView;
