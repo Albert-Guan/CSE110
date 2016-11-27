@@ -362,7 +362,7 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                     + dayNumbers[selectPostion] + "/"+dateAdapter.getCurrentYear(selectPostion));
             gvFlag++;
             flipper1.addView(gridView, gvFlag);
-            dateAdapter.setSeclection(selectPostion);
+            //dateAdapter.setSeclection(selectPostion);
             this.flipper1.setInAnimation(AnimationUtils.loadAnimation(this.getActivity(),
                     R.anim.push_left_in));
             this.flipper1.setOutAnimation(AnimationUtils.loadAnimation(this.getActivity(),
@@ -389,7 +389,7 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                         + dayNumbers[selectPostion] + "/"+dateAdapter.getCurrentYear(selectPostion));
                 gvFlag++;
                 flipper1.addView(gridView, gvFlag);
-                dateAdapter.setSeclection(selectPostion);
+                //dateAdapter.setSeclection(selectPostion);
                 this.flipper1.setInAnimation(AnimationUtils.loadAnimation(this.getActivity(),
                         R.anim.push_right_in));
                 this.flipper1.setOutAnimation(AnimationUtils.loadAnimation(this.getActivity(),
