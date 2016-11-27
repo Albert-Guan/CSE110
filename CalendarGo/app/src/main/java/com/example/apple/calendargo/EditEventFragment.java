@@ -144,7 +144,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                 fragmentTransaction.replace(R.id.frame, newFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                
+
             default:
         }
     }

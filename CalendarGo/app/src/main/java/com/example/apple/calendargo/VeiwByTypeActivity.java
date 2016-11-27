@@ -63,14 +63,26 @@ public class VeiwByTypeActivity extends AppCompatActivity {
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Event current_event = (Event)adapter_list.getItem(i);
 
-                            Intent detail = new Intent(VeiwByTypeActivity.this,DetailTypeActivity.class);
-                            Bundle pass_event = new Bundle();
+                        Event event_to_be_edited = (Event) adapter_list.getItem(i);
+                        String[] event_to_edited_string = new String[8];
+                        event_to_edited_string[0] = event_to_be_edited.organizer;
+                        event_to_edited_string[1] = event_to_be_edited.name;
+                        event_to_edited_string[2] = event_to_be_edited.date;
+                        event_to_edited_string[3] = event_to_be_edited.description;
+                        event_to_edited_string[4] = event_to_be_edited.address;
+                        event_to_edited_string[5] = event_to_be_edited.latitude;
+                        event_to_edited_string[6] = event_to_be_edited.longitude;
+                        event_to_edited_string[7] = event_to_be_edited.type;
 
-                            startActivity(detail);
+                        Bundle bundle = new Bundle();
+                        bundle.putStringArray("currEvent",event_to_edited_string);
 
+                        Intent detail = new Intent(VeiwByTypeActivity.this,DetailTypeActivity.class);
 
+                        detail.putExtras(bundle);
+
+                        startActivity(detail);
 
                     }
                 });
