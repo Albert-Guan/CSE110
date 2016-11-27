@@ -121,7 +121,7 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
                                 Bundle args = new Bundle();
                                 args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
 
-                                Fragment newFragment = new MoreFragment();
+                                Fragment newFragment = new ListFragment();
 
                                 fragmentTransaction.replace(R.id.frame, newFragment);
                                 fragmentTransaction.addToBackStack(null);
