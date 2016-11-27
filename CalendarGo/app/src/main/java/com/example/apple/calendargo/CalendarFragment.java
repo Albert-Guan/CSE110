@@ -119,7 +119,7 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
         flipper1 = (ViewFlipper) v.findViewById(R.id.flipper1);
         dateAdapter = new DateAdapter(getActivity(), getResources(), currentYear,
                 currentMonth, currentWeek, currentNum, selectPostion,
-                currentWeek == 1);
+                currentWeek == 1 ? true : false);
         addGridView();
         dayNumbers = dateAdapter.getDayNumbers();
         gridView.setAdapter(dateAdapter);
@@ -378,6 +378,8 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                 isBefore--;
                 currentWeek--;
                 getCurrent();
+                System.out.println("CalendarFragmenet: "+currentMonth+" , "+currentDay);
+
                 dateAdapter = new DateAdapter(this.getActivity(), getResources(), currentYear,
                         currentMonth, currentWeek, currentNum, selectPostion,
                         currentWeek == 1 ? true : false);
@@ -385,6 +387,7 @@ public class CalendarFragment extends Fragment implements GestureDetector.OnGest
                 gridView.setAdapter(dateAdapter);
                 tvDate.setText("Events on " + dateAdapter.getCurrentMonth(selectPostion) + "/"
                         + dayNumbers[selectPostion] + "/"+dateAdapter.getCurrentYear(selectPostion));
+                gvFlag++;
                 flipper1.addView(gridView, gvFlag);
                 dateAdapter.setSeclection(selectPostion);
                 this.flipper1.setInAnimation(AnimationUtils.loadAnimation(this.getActivity(),
