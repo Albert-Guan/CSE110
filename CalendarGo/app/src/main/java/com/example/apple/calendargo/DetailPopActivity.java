@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class DetailPopActivity extends AppCompatActivity {
 
     TextView organizer, eventName, month, day, year, description;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
