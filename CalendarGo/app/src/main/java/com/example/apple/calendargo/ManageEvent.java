@@ -35,23 +35,6 @@ public class ManageEvent extends Fragment{
 
         mListView = (ListView) v.findViewById(R.id.my_event_list_view);
 
-        mListView.setOnItemClickListener(new ListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int i, long l) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Bundle args = new Bundle();
-                args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
-                Fragment newFragment = new EditEventFragment();
-                newFragment.setArguments(args);
-
-                fragmentTransaction.replace(R.id.frame, newFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-
-        });
-
         FirebaseDatabase database;
         DatabaseReference myRef;
 
@@ -70,9 +53,41 @@ public class ManageEvent extends Fragment{
 
                 ArrayList<Event> events = ej.getEventForSpecificUser(dataSnapshot);
 
-                MyEventsAdapter manage_event_adapter = new MyEventsAdapter(getContext(),events);
+                final MyEventsAdapter manage_event_adapter = new MyEventsAdapter(getContext(),events);
 
                 mListView.setAdapter(manage_event_adapter);
+
+                mListView.setOnItemClickListener(new ListView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> a, View v, int i, long l) {
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                        /* get event from the adapter */
+                        Event event_to_be_edited = (Event) manage_event_adapter.getItem(i);
+                        String[] event_to_edited_string = new String[8];
+                        event_to_edited_string[0] = event_to_be_edited.organizer;
+                        event_to_edited_string[1] = event_to_be_edited.name;
+                        event_to_edited_string[2] = event_to_be_edited.date;
+                        event_to_edited_string[3] = event_to_be_edited.description;
+                        event_to_edited_string[4] = event_to_be_edited.address;
+                        event_to_edited_string[5] = event_to_be_edited.latitude;
+                        event_to_edited_string[6] = event_to_be_edited.longitude;
+                        event_to_edited_string[7] = event_to_be_edited.type;
+
+                        Bundle args = new Bundle();
+                        args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
+                        args.putStringArray("currEvent",event_to_edited_string);
+
+                        Fragment newFragment = new EditEventFragment();
+                        newFragment.setArguments(args);
+
+                        fragmentTransaction.replace(R.id.frame, newFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+
+                });
             }
 
             @Override
@@ -81,7 +96,9 @@ public class ManageEvent extends Fragment{
             }
         });
 
+
         // Inflate the layout for this fragment
         return v;
     }
+
 }

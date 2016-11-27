@@ -186,6 +186,8 @@ public class EventJson {
                             new_event.latitude = (String) event.get("latitude");
                             new_event.name = (String)event.get("name");
                             new_event.image = (String) event.get("image");
+                            new_event.organizer = (String) event.get("organizer");
+                            new_event.description = (String) event.get("description");
 
                             System.out.println(new_event.toString());
 
@@ -270,6 +272,8 @@ public class EventJson {
                     new_event.name = (String)event.get("name");
                     new_event.image = (String) event.get("image");
                     new_event.type = (String) event.get("type");
+                    new_event.organizer = (String) event.get("organizer");
+                    new_event.description = (String) event.get("description");
 
                     System.out.println(new_event.toString());
 
@@ -319,6 +323,8 @@ public class EventJson {
                         new_event.name = (String)event.get("name");
                         new_event.image = (String) event.get("image");
                         new_event.type = (String) event.get("type");
+                        new_event.organizer = (String) event.get("organizer");
+                        new_event.description = (String) event.get("description");
                         //new_event.longitude = (double) event.get("longitude");
                         //new_event.latitude = (double) event.get("latitude");
 
@@ -376,6 +382,9 @@ public class EventJson {
                     new_event.name = (String) event.get("name");
                     new_event.image = (String) event.get("image");
                     new_event.type = (String) event.get("type");
+                    new_event.organizer = (String) event.get("organizer");
+                    new_event.description = (String) event.get("description");
+
                     //new_event.longitude = (double) event.get("longitude");
                     //new_event.latitude = (double) event.get("latitude");
 

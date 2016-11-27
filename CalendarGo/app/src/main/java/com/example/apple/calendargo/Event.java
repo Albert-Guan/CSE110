@@ -94,6 +94,6 @@ public class Event implements Comparable<Event> {
     }
 
     public String toString(){
-        return name+" will happen at "+date+"\n";
+        return organizer+" organized "+name+" at "+date+"\n";
     }
 }
