@@ -14,16 +14,12 @@
         tools:src="@mipmap/ic_launcher"
         />
 
-    <Button
-        android:text="EDIT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button12"
-        android:layout_alignParentRight="true"
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="2dp"
-        android:maxLines="1"
-        android:paddingRight="10dp"/>
+        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:layout_alignParentRight="true"/>
 
     <TextView
         android:id="@+id/event_distance"

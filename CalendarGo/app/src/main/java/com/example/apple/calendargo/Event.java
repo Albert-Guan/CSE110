@@ -22,7 +22,7 @@ public class Event implements Comparable<Event> {
 
     public Event(){
         name = "Event name";
-        description = "Event Description";
+        description = "No description available.";
         date = "Mar-12-2016";
         longitude = "32.8801";
         latitude = "-117.2340";

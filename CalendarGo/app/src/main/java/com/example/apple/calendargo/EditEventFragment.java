@@ -34,7 +34,7 @@ import java.util.Date;
  */
 
 public class EditEventFragment extends Fragment implements View.OnClickListener {
-    EditText organizer, eventName,month, day,year,description;
+    EditText organizer,eventName,month,day,year,description;
     String[] current_event;
     @Nullable
     @Override

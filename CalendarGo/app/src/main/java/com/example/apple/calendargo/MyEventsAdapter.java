@@ -66,9 +66,9 @@ public class MyEventsAdapter extends BaseAdapter {
         /*ImageView eventPhoto =
                 (ImageView) rowView.findViewById(R.id.event_photo);*/
 
-        Button b12 = (Button)rowView.findViewById(R.id.button12);
-        b12.setClickable(false);
-        b12.setFocusable(false);
+        //Button b12 = (Button)rowView.findViewById(R.id.button12);
+        //b12.setClickable(false);
+        //b12.setFocusable(false);
 
         Event thisEvent = (Event) getItem(position);
 
