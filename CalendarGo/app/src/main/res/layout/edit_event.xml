@@ -133,7 +133,8 @@
                 android:gravity="top|left"
                 android:maxLines="10"
                 android:scrollbars="none"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                android:selectAllOnFocus="true" />
 
             <LinearLayout
                 android:orientation="horizontal"
