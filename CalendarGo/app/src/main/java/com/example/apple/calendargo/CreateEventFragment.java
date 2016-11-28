@@ -23,9 +23,11 @@ import com.google.android.gms.maps.*;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by jd on 11/11/16.
@@ -81,6 +83,14 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
                 String date = month+"-"+day+"-"+year;
 
+                Date currDate = new Date();
+
+                Date setDate = new GregorianCalendar(year, month-1, day+1).getTime();
+
+                System.out.println(setDate);
+                System.out.println(currDate);
+
+
                 event = new String[5];
                 event[0] = organizer;
                 event[1] = event_name;
@@ -98,6 +108,15 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                             //.setIcon(android.R.drawable.ic_dialog_info)
                             .setTitle("Empty event details")
                             .setMessage("Please fill out all of the fields before creating an event.")
+                            .setPositiveButton("Ok", null)
+                            .show();
+                    break;
+                }
+                else if (setDate.compareTo(currDate) < 0){
+                    new AlertDialog.Builder(getActivity())
+                            //.setIcon(android.R.drawable.ic_dialog_info)
+                            .setTitle("Invalid date")
+                            .setMessage("The date you entered has already passed!")
                             .setPositiveButton("Ok", null)
                             .show();
                     break;
