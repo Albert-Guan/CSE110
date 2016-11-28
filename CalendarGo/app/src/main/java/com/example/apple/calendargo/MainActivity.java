@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                 String uid = user.getUid();
                                 myRef = database.getReference("Users").child(uid);
 
-                                Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_LONG).show();
 
                                 final TextView email = (TextView) findViewById(R.id.email);
 
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                                         } else {
                                             //System.out.println("LogIn Successfully\n");
                                             List<String> profile = (List<String>) dataSnapshot.getValue();
-                                            Toast.makeText(MainActivity.this, profile.toString(), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(MainActivity.this, "Logged in as " + profile.toString().substring(1, profile.toString().length()-1), Toast.LENGTH_SHORT).show();
 
                                             email.setText(profile.get(profile.size()-1));
                                         }

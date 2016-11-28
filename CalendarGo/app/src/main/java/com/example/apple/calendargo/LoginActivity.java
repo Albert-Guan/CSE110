@@ -128,7 +128,8 @@ public class LoginActivity extends AppCompatActivity {
                                             else{
                                                 //System.out.println("LogIn Successfully\n");
                                                 List<String> profile = (List<String>) dataSnapshot.getValue();
-                                                Toast.makeText(LoginActivity.this,profile.toString(),Toast.LENGTH_LONG).show();
+                                                if (MainActivity.debugEnabled)
+                                                    Toast.makeText(LoginActivity.this,profile.toString(),Toast.LENGTH_LONG).show();
                                                 SharedPreferences.Editor editor = pref.edit();
 
                                                 editor.putString("emailAddress",emailAddress);
