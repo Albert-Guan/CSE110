@@ -35,7 +35,7 @@ public class ListFragment extends Fragment {
 
         mListViewType = (ListView) v.findViewById(R.id.listViewType);
 
-        final String[] types = new String[] {"Athletics","Free food","Music","Family","Pet friendly","Workshops","Party","Other","The most pop 3 events: "};
+        final String[] types = new String[] {"Athletics","Free food","Music","Family","Pet friendly","Workshops","Party","Other","Most Popular Events: "};
         //final String[] types;
         //types = getActivity().getResources().getStringArray(R.array.category_array);
 
