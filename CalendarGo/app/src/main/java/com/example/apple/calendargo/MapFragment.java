@@ -1,11 +1,13 @@
 package com.example.apple.calendargo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +48,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private EventJson ej;
+    public HashMap<Marker, Event> hmap = new HashMap<Marker, Event>();
 
     @Nullable
     @Override
@@ -61,6 +65,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Event event = hmap.get(marker);
+                Intent detailEvent = new Intent(getActivity(),DetailTypeActivity.class);
+                String[] event_to_edited_string = new String[8];
+                event_to_edited_string[0] = event.organizer;
+                event_to_edited_string[1] = event.name;
+                event_to_edited_string[2] = event.date;
+                event_to_edited_string[3] = event.description;
+                event_to_edited_string[4] = event.address;
+                event_to_edited_string[5] = event.latitude;
+                event_to_edited_string[6] = event.longitude;
+                event_to_edited_string[7] = event.type;
+
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("currEvent",event_to_edited_string);
+
+                detailEvent.putExtras(bundle);
+                startActivity(detailEvent);
+
+            }
+        });
 
         FirebaseDatabase database;
         DatabaseReference myRef;
@@ -115,7 +143,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             break;
                     }
                     System.out.println("The longitude is: "+e.longitude);
-                    createMarker(Double.parseDouble(e.longitude),Double.parseDouble((e.latitude)),e.name,colorValue,e.description);
+                    createMarker(Double.parseDouble(e.longitude),Double.parseDouble((e.latitude)),e.name,colorValue,e.description,e);
                     //createMarkerByAddress(markersArray.get(i).address,markersArray.get(i).name,colorValue,markersArray.get(i).description);
                 }
             }
@@ -154,9 +182,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // mMap.setMyLocationEnabled(true);
     }
 
-    private void createMarker( double longitude, double latitude, String name, Float colorVal, String description)
+    private void createMarker(double longitude, double latitude, String name, Float colorVal, String description, Event e)
     {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
+        Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
+        hmap.put(m, e);
     }
 
     private void createMarkerByAddress(String address, String name, Float colorVal, String description){
@@ -200,5 +229,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return p1;
 
     }
-
 }

@@ -22,7 +22,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="Map">
+            android:label="CalendarGo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
