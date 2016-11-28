@@ -69,6 +69,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                if(hmap.get(marker) == null)
+                    return;
+
                 Event event = hmap.get(marker);
                 Intent detailEvent = new Intent(getActivity(),DetailTypeActivity.class);
                 String[] event_to_edited_string = new String[8];
@@ -86,7 +89,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 detailEvent.putExtras(bundle);
                 startActivity(detailEvent);
-
             }
         });
 
