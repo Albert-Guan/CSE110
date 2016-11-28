@@ -68,6 +68,12 @@ public class ManageAccountFragment extends Fragment implements View.OnClickListe
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String password1 = etPassword1.getText().toString();
                 String password2 = etPassword2.getText().toString();
+
+                if (password1.length() < 6) {
+                    Toast.makeText(getContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
                 if (password1.equals(password2)){
                     user.updatePassword(password1).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

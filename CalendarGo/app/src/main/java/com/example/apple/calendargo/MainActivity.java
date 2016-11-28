@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
 
         //calling sync state is necessay or else your hamburger icon wont show up
-        actionBarDrawerToggle.syncState();
+      //  actionBarDrawerToggle.syncState();
     }
 
     @Override

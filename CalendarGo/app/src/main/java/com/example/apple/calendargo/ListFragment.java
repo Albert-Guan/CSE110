@@ -95,7 +95,7 @@ public class ListFragment extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putStringArray("currEvent",event_to_edited_string);
-                    Intent detailIntent = new Intent(context, DetailPopActivity.class);
+                    Intent detailIntent = new Intent(context, DetailTypeActivity.class);
 
                     detailIntent.putExtras(bundle);
 
