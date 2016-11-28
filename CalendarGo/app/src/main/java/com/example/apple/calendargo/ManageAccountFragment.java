@@ -73,7 +73,7 @@ public class ManageAccountFragment extends Fragment implements View.OnClickListe
                     Toast.makeText(getContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                
+
                 if (password1.equals(password2)){
                     user.updatePassword(password1).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
