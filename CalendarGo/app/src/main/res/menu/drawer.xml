@@ -9,11 +9,7 @@
             android:checked="false"
             android:icon="@drawable/ic_email_black"
             android:title="@string/log_in" />
-        <item
-            android:id="@+id/personal_profile"
-            android:checked="false"
-            android:icon="@drawable/ic_email_black"
-            android:title="Profile" />
+
         <item
             android:id="@+id/log_out"
             android:checked="false"

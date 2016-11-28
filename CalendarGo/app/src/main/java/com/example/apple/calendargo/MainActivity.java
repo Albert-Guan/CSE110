@@ -233,21 +233,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         log_in = navigationView.getMenu().findItem(R.id.log_in);
-        pro_file = navigationView.getMenu().findItem(R.id.log_out);
-        log_out = navigationView.getMenu().findItem(R.id.personal_profile);
+        log_out = navigationView.getMenu().findItem(R.id.log_out);
 
         //System.out.println(hasLoggedIn);
 
        if (hasLoggedIn) {
             System.out.println("Has Logged In");
             log_in.setVisible(false);
-            pro_file.setVisible(true);
             log_out.setVisible(true);
         }
         else{
             System.out.println("Has not Logged In");
             log_in.setVisible(true);
-            pro_file.setVisible(false);
             log_out.setVisible(false);
         }
 

@@ -12,18 +12,6 @@
         android:textAlignment="center"
         android:fontFamily="sans-serif-smallcaps" />
 
-    <TextView
-        android:text="Display name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editText5" />
 
     <TextView
         android:text="New password"
@@ -36,7 +24,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText8" />
+        android:id="@+id/password1" />
 
     <TextView
         android:text="Confirm password"
@@ -49,7 +37,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText9" />
+        android:id="@+id/password2" />
 
     <LinearLayout
         android:orientation="horizontal"
