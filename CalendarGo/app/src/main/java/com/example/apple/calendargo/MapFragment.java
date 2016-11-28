@@ -3,6 +3,9 @@ package com.example.apple.calendargo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
@@ -21,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -49,6 +53,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private EventJson ej;
     public HashMap<Marker, Event> hmap = new HashMap<Marker, Event>();
+    String[] types;
 
     @Nullable
     @Override
@@ -56,6 +61,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.map, null,false);
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
 
+
+        types = v.getResources().getStringArray(R.array.category_array);
 
         mapFragment.getMapAsync(this);
         return v;
@@ -110,9 +117,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 for(Event e : markersArray)
                 {
-                    System.out.println("MapFrag: event: "+e.toString());
+                   // System.out.println("MapFrag: event: "+e.toString());
 
-                    Float colorValue = 0.0f;
+                    /*Float colorValue = 0.0f;
                     String colorType = e.type;
                     switch(colorType)
                     {
@@ -144,8 +151,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             colorValue = 0.00f;
                             break;
                     }
-                    System.out.println("The longitude is: "+e.longitude);
-                    createMarker(Double.parseDouble(e.longitude),Double.parseDouble((e.latitude)),e.name,colorValue,e.description,e);
+                    System.out.println("The longitude is: "+e.longitude);*/
+                    createMarker(Double.parseDouble(e.longitude),Double.parseDouble((e.latitude)),e.name,e.type,e.description,e);
                     //createMarkerByAddress(markersArray.get(i).address,markersArray.get(i).name,colorValue,markersArray.get(i).description);
                 }
             }
@@ -184,9 +191,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // mMap.setMyLocationEnabled(true);
     }
 
-    private void createMarker(double longitude, double latitude, String name, Float colorVal, String description, Event e)
+    private void createMarker(double longitude, double latitude, String name, String type, String description, Event e)
     {
-        Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
+         /*mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));*/
+        Drawable circleDrawable;
+        if (type.equals(types[0]))
+            circleDrawable = getResources().getDrawable(R.drawable.athletics);
+        else if (type.equals(types[1]))
+            circleDrawable = getResources().getDrawable(R.drawable.food);
+        else if (type.equals(types[2]))
+            circleDrawable = getResources().getDrawable(R.drawable.music);
+        else if (type.equals(types[3]))
+            circleDrawable = getResources().getDrawable(R.drawable.family);
+        else if (type.equals(types[4]))
+            circleDrawable = getResources().getDrawable(R.drawable.pet);
+        else if (type.equals(types[5]))
+            circleDrawable = getResources().getDrawable(R.drawable.workshop);
+        else if (type.equals(types[6]))
+            circleDrawable = getResources().getDrawable(R.drawable.party);
+        else
+            circleDrawable = getResources().getDrawable(R.drawable.others);
+
+        BitmapDescriptor markerIcon = getMarkerIconFromDrawable(circleDrawable);
+        Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).snippet(description).icon(markerIcon));
         hmap.put(m, e);
     }
 
@@ -230,5 +257,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         return p1;
 
+    }
+
+    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
+        double a = 0.35;
+        Canvas canvas = new Canvas();
+        Bitmap bitmap = Bitmap.createBitmap((int)(drawable.getIntrinsicWidth()*a), (int)(drawable.getIntrinsicHeight()*a), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+        drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*a), (int)(drawable.getIntrinsicWidth()*a));
+        drawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
