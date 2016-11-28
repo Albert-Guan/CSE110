@@ -6,10 +6,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class DetailTypeActivity extends AppCompatActivity {
-    TextView organizer, eventName, month, day, year, description;
+    TextView organizer, eventName, month, day, year, description, address;
+    ImageView icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class DetailTypeActivity extends AppCompatActivity {
         day = (TextView) findViewById(R.id.day);
         year = (TextView) findViewById(R.id.year);
         description = (TextView) findViewById(R.id.description);
+        address = (TextView) findViewById(R.id.address);
+        icon = (ImageView) findViewById(R.id.imageView2);
 
         String[] currEvent = getIntent().getExtras().getStringArray("currEvent");
         String[] date = currEvent[2].split("-");
@@ -35,8 +41,28 @@ public class DetailTypeActivity extends AppCompatActivity {
         month.setText(date[0]);
         day.setText(date[1]);
         year.setText(date[2]);
-
+        address.setText(currEvent[4]);
         description.setText(currEvent[3]);
+
+        String[] types = getResources().getStringArray(R.array.category_array);
+        String currType = currEvent[7];
+
+        if (currType.equals(types[0]))
+            icon.setImageResource(R.drawable.athletics);
+        else if (currType.equals(types[1]))
+            icon.setImageResource(R.drawable.food);
+        else if (currType.equals(types[2]))
+            icon.setImageResource(R.drawable.music);
+        else if (currType.equals(types[3]))
+            icon.setImageResource(R.drawable.family);
+        else if (currType.equals(types[4]))
+            icon.setImageResource(R.drawable.pet);
+        else if (currType.equals(types[5]))
+            icon.setImageResource(R.drawable.workshop);
+        else if (currType.equals(types[6]))
+            icon.setImageResource(R.drawable.party);
+        else
+            icon.setImageResource(R.drawable.others);
 
         setTitle(currEvent[1]);
     }
