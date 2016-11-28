@@ -127,6 +127,16 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                 break;
             // save button
             case R.id.button13:
+
+                if (month.getText().toString().isEmpty() || day.getText().toString().isEmpty() || year.getText().toString().isEmpty() || organizer.getText().toString().isEmpty() || eventName.getText().toString().isEmpty()){
+                    new AlertDialog.Builder(getActivity())
+                            //.setIcon(android.R.drawable.ic_dialog_info)
+                            .setTitle("Empty event details")
+                            .setMessage("Please fill out all of the fields before changing an event.")
+                            .setPositiveButton("Ok", null)
+                            .show();
+                    break;
+                }
                 String date = Integer.parseInt(month.getText().toString())+"-"+Integer.parseInt(day.getText().toString())+"-"+Integer.parseInt(year.getText().toString());
                 Event editedEvent = new Event(organizer.getText().toString(),current_event[7],current_event[4],date,eventName.getText().toString());
                 editedEvent.description = description.getEditableText().toString();

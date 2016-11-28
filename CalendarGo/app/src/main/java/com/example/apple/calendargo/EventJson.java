@@ -295,8 +295,6 @@ public class EventJson {
 
     public ArrayList<Event> getAllEvents(DataSnapshot dataSnapshot,Activity activity){
         events = new ArrayList<Event>();
-        String[] types;
-        types = activity.getResources().getStringArray(R.array.category_array);
 
         if (dataSnapshot == null || dataSnapshot.getValue() == null) {
             System.out.println("No records");
