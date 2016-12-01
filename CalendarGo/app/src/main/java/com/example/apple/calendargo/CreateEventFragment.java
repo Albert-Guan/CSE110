@@ -46,9 +46,11 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
         View v = inflater.inflate(R.layout.create_event, container, false);
 
+        // associate member variables with the xml buttons
         Button b3 = (Button) v.findViewById(R.id.button3);
         Button b2 = (Button) v.findViewById(R.id.button2);
 
+        // enable event handling
         b3.setOnClickListener(this);
         b2.setOnClickListener(this);
 
@@ -89,7 +91,6 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
                 System.out.println(setDate);
                 System.out.println(currDate);
-
 
                 event = new String[5];
                 event[0] = organizer;
