@@ -16,12 +16,12 @@ import java.util.Date;
 
 public class DateAdapter extends BaseAdapter {
 	private static String TAG = "ZzL";
-	private boolean isLeapyear = false; // 是否为闰年
-	private int daysOfMonth = 0; // 某月的天数
-	private int dayOfWeek = 0; // 具体某一天是星期几
+	private boolean isLeapyear = false;
+	private int daysOfMonth = 0;
+	private int dayOfWeek = 0;
 	private int nextDayOfWeek = 0;
 	private int lastDayOfWeek = 0;
-	private int lastDaysOfMonth = 0; // 上一个月的总天数
+	private int lastDaysOfMonth = 0;
 	private int eachDayOfWeek = 0;
 	private Context context;
 	private SpecialCalendar sc = null;
@@ -29,8 +29,8 @@ public class DateAdapter extends BaseAdapter {
 	private Drawable drawable = null;
 	private String[] dayNumber = new String[7];
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
-	private int currentFlag = -1; // 用于标记当天
-	// 系统当前时间
+	private int currentFlag = -1;
+
 	private String sysDate = "";
 	private String sys_year = "";
 	private String sys_month = "";
@@ -51,14 +51,14 @@ public class DateAdapter extends BaseAdapter {
 	private int n_day_week = 0;
 	private boolean isStart;
 
-	// 标识选择的Item
+
 	public void setSeclection(int position) {
 		clickTemp = position;
 	}
 
 	public DateAdapter() {
 		Date date = new Date();
-		sysDate = sdf.format(date); // 当期日期
+		sysDate = sdf.format(date);
 		sys_year = sysDate.split("-")[0];
 		sys_month = sysDate.split("-")[1];
 		sys_day = sysDate.split("-")[2];
@@ -79,10 +79,10 @@ public class DateAdapter extends BaseAdapter {
 				sc.getDaysOfMonth(sc.isLeapYear(year_c), month_c));
 		Log.i(TAG, "week_c:" + week_c);
 		currentYear = String.valueOf(year_c);
-		; // 得到当前的年份
-		currentMonth = String.valueOf(month_c); // 得到本月
-		// （jumpMonth为滑动的次数，每滑动一次就增加一月或减一月）
-		currentDay = String.valueOf(sys_day); // 得到当前日期是哪天
+		;
+		currentMonth = String.valueOf(month_c);
+
+		currentDay = String.valueOf(sys_day);
 		getCalendar(Integer.parseInt(currentYear),
 				Integer.parseInt(currentMonth));
 		currentWeek = String.valueOf(week_c);
@@ -143,9 +143,9 @@ public class DateAdapter extends BaseAdapter {
 	}
 
 	public void getCalendar(int year, int month) {
-		isLeapyear = sc.isLeapYear(year); // 是否为闰年
-		daysOfMonth = sc.getDaysOfMonth(isLeapyear, month); // 某月的总天数
-		dayOfWeek = sc.getWeekdayOfMonth(year, month); // 某月第一天为星期几
+		isLeapyear = sc.isLeapYear(year);
+		daysOfMonth = sc.getDaysOfMonth(isLeapyear, month);
+		dayOfWeek = sc.getWeekdayOfMonth(year, month);
 		lastDaysOfMonth = sc.getDaysOfMonth(isLeapyear, month - 1);
 		nextDayOfWeek = sc.getDaysOfMonth(isLeapyear, month + 1);
 	}
@@ -175,11 +175,9 @@ public class DateAdapter extends BaseAdapter {
 		return dayNumber;
 	}
 
-	/**
-	 * 得到某月有几周(特殊算法)
-	 */
+
 	public int getWeeksOfMonth() {
-		// getCalendar(year, month);
+
 		int preMonthRelax = 0;
 		if (dayOfWeek != 7) {
 			preMonthRelax = dayOfWeek;
@@ -192,9 +190,7 @@ public class DateAdapter extends BaseAdapter {
 		return weeksOfMonth;
 	}
 
-	/**
-	 * 某一天在第几周
-	 */
+
 	public void getDayInWeek(int year, int month) {
 
 	}
