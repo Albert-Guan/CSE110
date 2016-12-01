@@ -2,54 +2,43 @@ package com.example.apple.calendargo;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-
-import static com.google.android.gms.wearable.DataMap.TAG;
 
 /**
  * Created by apple on 10/21/16.
  */
 
+/** This class is created to allow the user to be able to reposition the marker on their map after creating an event
+ * so as to save the correct location for the event
+ */
 public class NewEventMapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -154,11 +143,14 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        // adding marker to the app
         marker = mMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(), address)).title(name).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).draggable(true));
 
-
+        // moves the camera to the location
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getLocationFromAddress(getContext(), address), 18));
 
+        // enabling dragging functionality to the markers
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
@@ -187,13 +179,8 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
             mMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),address)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
     }
 
-    /*
-    private void createMarkerNewEvent( double longitude, double latitude, String name )
-    {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f));
-    }
-    */
 
+    // using geocoding to extract exact coordinates of the event
     public LatLng getLocationFromAddress(Context context, String strAddress)
     {
         Geocoder coder = new Geocoder(context);
