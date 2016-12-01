@@ -39,6 +39,7 @@ import java.util.Locale;
 /** This class is created to allow the user to be able to reposition the marker on their map after creating an event
  * so as to save the correct location for the event
  */
+
 public class NewEventMapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -174,6 +175,7 @@ public class NewEventMapFragment extends Fragment implements OnMapReadyCallback 
         mMap.addMarker(new MarkerOptions().position(new LatLng(longitude, latitude)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
     }
 
+    /** using Google Documentation to make createMarker events */
     private void createMarkerByAddress(String address, String name, Float colorVal, String description){
         if (getLocationFromAddress(getContext(),address) != null)
             mMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),address)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
