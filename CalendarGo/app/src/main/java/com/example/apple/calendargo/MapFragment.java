@@ -37,8 +37,6 @@ import java.util.List;
  * Created to implement the map functionality of the app
  */
 
-
-
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -154,10 +152,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         hmap.put(m, e);
     }
 
+    /** this is a code segment that was inspired from the Google documentation */
     private void createMarkerByAddress(String address, String name, Float colorVal, String description){
         if (getLocationFromAddress(getContext(),address) != null)
             mMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),address)).title(name).alpha(0.7f).icon(BitmapDescriptorFactory.defaultMarker(colorVal)).snippet(description));
     }
+
 
     /** this block of code is required to the latitudes and longitudes of a location based on the entered address */
     public LatLng getLocationFromAddress(Context context, String strAddress)
