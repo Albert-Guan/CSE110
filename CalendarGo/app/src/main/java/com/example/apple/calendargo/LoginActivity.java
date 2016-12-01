@@ -31,26 +31,21 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // define the interface for the Login activity
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     FirebaseDatabase database;
     DatabaseReference myRef;
     SharedPreferences pref;
-
     Firebase myFirebaseRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //initialize the private datafield
         auth = FirebaseAuth.getInstance();
-
-        /*if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }*/
-
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
-
         database = FirebaseDatabase.getInstance();
 
         setContentView(R.layout.activity_login);
@@ -62,9 +57,9 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.etPasswordLogin);
 
         auth = FirebaseAuth.getInstance();
-
         progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
 
+        // set link to register for the app
         registerLink.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -74,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // set link to skip without logging in
         skipLink.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -84,17 +80,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // log in
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String emailAddress = etEmail.getText().toString();
                 final String password = etPassword.getText().toString();
 
+                //check the if the email address is empty
                 if (TextUtils.isEmpty(emailAddress)){
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                //check if password is empty
                 if (TextUtils.isEmpty(password)){
                     Toast.makeText(getApplicationContext(), "Enter password", Toast.LENGTH_SHORT).show();
                     return;
@@ -102,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
+                //log in with th email address and password
                 auth.signInWithEmailAndPassword(emailAddress, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -125,18 +125,23 @@ public class LoginActivity extends AppCompatActivity {
                                             if (dataSnapshot == null && dataSnapshot.getValue() == null){
                                                 Toast.makeText(LoginActivity.this,"No Record",Toast.LENGTH_SHORT).show();
                                             }
-                                            else{
+                                            else{ //if login successfully
                                                 //System.out.println("LogIn Successfully\n");
+
+                                                //get the user profile from the database
                                                 List<String> profile = (List<String>) dataSnapshot.getValue();
+
+
                                                 if (MainActivity.debugEnabled)
                                                     Toast.makeText(LoginActivity.this,profile.toString(),Toast.LENGTH_LONG).show();
-                                                SharedPreferences.Editor editor = pref.edit();
 
+                                                //edit the shared preference file to store the user information locally
+                                                SharedPreferences.Editor editor = pref.edit();
                                                 editor.putString("emailAddress",emailAddress);
                                                 editor.putString("password",password);
                                                 editor.apply();
 
-
+                                                //go to the main activity.
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                 intent.putExtra("hasLoggedIn",true);
                                                 startActivity(intent);

@@ -24,9 +24,9 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    // define datafields
     private EditText etEmail;
     private EditText etPassword;
-    //private EditText etPhone;
     private EditText etPassword_confirm;
 
     private ProgressBar progressBar;
@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
         final Button registerButton = (Button) findViewById(R.id.bReg);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -57,9 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
         //initialize the user interface parameters
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        //etPhone = (EditText) findViewById(R.id.etPhone);
         etPassword_confirm = (EditText) findViewById(R.id.etPasswordConfirm);
 
+        //set onclickListener for registerButton
         registerButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,18 +72,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    //submit the register
     private void registerSubmit(){
 
 
 
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
-        //String phone = etPhone.getText().toString();
         String confirm_password = etPassword_confirm.getText().toString();
 
         userProfile.add(email);
-        //userProfile.add(phone);
 
+        //do all the check for the input
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
             return;
@@ -106,6 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
+        //creat the user
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override

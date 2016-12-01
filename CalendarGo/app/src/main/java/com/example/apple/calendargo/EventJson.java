@@ -2,7 +2,7 @@ package com.example.apple.calendargo;
 
 /**
  * Created by apple on 11/11/16.
- * Define the method to extract event object from the Json file
+ * Define the method to extract event object from the Firabase
  */
 
 import android.app.Activity;
@@ -43,6 +43,8 @@ public class EventJson {
     private String image;
     private ArrayList<Event> events;
 
+
+    // get events from file
     public static ArrayList<Event> getEventsFromFile(String filename, Context context){
         final ArrayList<Event> eventList = new ArrayList<Event>();
 
@@ -76,6 +78,7 @@ public class EventJson {
         return eventList;
     }
 
+    //get events from databasae for certain date
     public static ArrayList<Event> getEventsFromFileDate(String filename, String date, Context context){
         ArrayList<Event> temp_events;
         temp_events = getEventsFromFile(filename,context);
@@ -92,7 +95,7 @@ public class EventJson {
         return events;
     }
 
-
+    //load json file from the asset folder
     private static String loadJsonFromAsset(String filename, Context context){
         String json = null;
 
@@ -113,6 +116,7 @@ public class EventJson {
         return json;
     }
 
+    //save certain event to firebase
     public static void saveEventToFirebase(Event event){
 
         FirebaseDatabase database;
@@ -129,6 +133,7 @@ public class EventJson {
 
     }
 
+    //save certain event for its creator
     public static void saveEventForSpecificUser(String UserId, Event event){
         FirebaseDatabase database;
         DatabaseReference myRef;
@@ -146,6 +151,7 @@ public class EventJson {
     }
 
 
+    //get events from firebase for specific type
     public static ArrayList<Event> getEventFromFirebaseByType(final String type){
 
         final ArrayList<Event> events = new ArrayList<Event>();
@@ -216,6 +222,7 @@ public class EventJson {
         return events;
     }
 
+    //get events
     public ArrayList<Event>  getEventsSpecificDate(String date, Activity activity){
         ArrayList<Event> events = new ArrayList<Event>();
         ArrayList<Event> temp;
@@ -243,6 +250,7 @@ public class EventJson {
         return event;
     }
 
+    //get events from specific data snapshot
     public ArrayList<Event> getEventsFromDataSnapShot(DataSnapshot dataSnapshot){
         events = new ArrayList<Event>();
 
@@ -292,7 +300,7 @@ public class EventJson {
         return events;
     }
 
-
+    //get all events from the firebase
     public ArrayList<Event> getAllEvents(DataSnapshot dataSnapshot,Activity activity){
         events = new ArrayList<Event>();
 
@@ -338,6 +346,7 @@ public class EventJson {
 
     }
 
+    //filter a list of events by date
     public ArrayList<Event> checkDate(String date, ArrayList<Event> events){
         ArrayList<Event> new_events = new ArrayList<Event>();
 
@@ -351,6 +360,7 @@ public class EventJson {
 
     }
 
+    //filter a list of events by current date
     public ArrayList<Event> checkCurrentDate(ArrayList<Event> events){
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("M-d-yyyy");
@@ -359,6 +369,7 @@ public class EventJson {
         return checkDate(currentDate, events);
     }
 
+    //get events created by specific user
     public ArrayList<Event> getEventForSpecificUser(DataSnapshot dataSnapshot){
         ArrayList<Event> events = new ArrayList<Event>();
 

@@ -56,29 +56,28 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+    //define the variable and interface element.
     private CoordinatorLayout coordinatorLayout;
     private Fragment f;
     private SearchView mSearchView;
     private TextView mStatusView;
-    public static boolean debugEnabled;
+    public static boolean debugEnabled; //control the show for debug message
     public static boolean focusEnabled;
-
-    //Defining Variables
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ImageView imageView;
+    private MenuItem log_in;
+    private MenuItem log_out;
 
+    //define the private file
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     public static boolean hasLoggedIn;
 
+    //define the database related variables
     private FirebaseAuth auth;
     private ProgressBar progressBar;
-
-    private MenuItem log_in;
-    private MenuItem pro_file;
-    private MenuItem log_out;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -92,38 +91,24 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Initialize the database auth
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-
-
-        //test
-        /*if (getIntent().getExtras().getBoolean("hasLoggedIn") == true){
-            hasLoggedIn = true;
-        }
-        else{
-            hasLoggedIn = false;
-        }*/
-
         hasLoggedIn = false;
 
-
+        //get the password and email address from the preference file
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
-
         editor = pref.edit();
-
         String emailAddress = pref.getString("emailAddress","");
         String password = pref.getString("password","");
 
-        System.out.println("The log in email address is: "+pref.getString("emailAddress",""));
+        //DEBUG MESSAGE
+        //System.out.println("The log in email address is: "+pref.getString("emailAddress",""));
         //System.out.println(pref.getString("password",""));
         //System.out.println("What the heck!!!");
 
-
-        /*ArrayList<Event> events = EventJson.getEventsFromFile("mostPop.json",getBaseContext());
-
-        for (Event event:events) EventJson.saveEventToFirebase(event);*/
-
+        //Do the automatic log in
         if (!emailAddress.isEmpty() && !password.isEmpty()) {
             hasLoggedIn = true;
             auth.signInWithEmailAndPassword(emailAddress, password)
@@ -186,17 +171,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         // disable the title of the toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        // show the list fragment as the main page
         f = new ListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame,f).commit();
 
+        // initialize the bottom bar
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.four_buttons_activity);
-
         BottomBar bottomBar = BottomBar.attach(this, savedInstanceState);
-
         bottomBar.setItemsFromMenu(R.menu.four_bottons_menu, new OnMenuTabSelectedListener() {
             @Override
             public void onMenuItemSelected(int itemId) {
 
+                //close the drawer when clicking the bottom bar
                 drawerLayout.closeDrawers();
 
                 switch (itemId) {
@@ -227,16 +213,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
+
         bottomBar.setActiveTabColor("#C2185B");
 
-        //Initializing NavigationView
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
+        // initializing NavigationView
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         log_in = navigationView.getMenu().findItem(R.id.log_in);
         log_out = navigationView.getMenu().findItem(R.id.log_out);
 
+        //DEBUG MESSAGE
         //System.out.println(hasLoggedIn);
 
+        // show different layout for the side drawer for different log in mode
        if (hasLoggedIn) {
             System.out.println("Has Logged In");
             log_in.setVisible(false);
@@ -248,25 +237,26 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             log_out.setVisible(false);
         }
 
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+
+        // set Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
 
-                //Checking if the item is in checked state or not, if not make it in checked state
+                // check if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) menuItem.setChecked(false);
                 else menuItem.setChecked(true);
 
-                //Closing drawer on item click
+                // close drawer on item click
                 drawerLayout.closeDrawers();
 
-                //Check to see which item was being clicked and perform appropriate action
+                // check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
 
 
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
+                    // replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.log_in:
                         //Toast.makeText(getApplicationContext(), "Log in", Toast.LENGTH_SHORT).show();
                         Intent logInIntent = new Intent(MainActivity.this, LoginActivity.class);
@@ -297,13 +287,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
 
 
-        // Initializing Drawer Layout and ActionBarToggle
+        // initialize Drawer Layout and ActionBarToggle
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         android.support.v7.app.ActionBarDrawerToggle actionBarDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this,drawerLayout,null,R.string.openDrawer, R.string.closeDrawer){
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                // code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
                 super.onDrawerClosed(drawerView);
 
             }
@@ -316,12 +306,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         };
 
-        //Setting the actionbarToggle to drawer layout
+        // set the actionbarToggle to drawer layout
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
-
         imageView = (ImageView) findViewById(R.id.profile_image);
         //final DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer);
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -332,8 +320,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
 
-        //calling sync state is necessay or else your hamburger icon wont show up
-      //  actionBarDrawerToggle.syncState();
+        // calling sync state is necessay or else your hamburger icon wont show up
+        //  actionBarDrawerToggle.syncState();
     }
 
     @Override
@@ -345,9 +333,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -358,6 +343,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return super.onOptionsItemSelected(item);
     }
 
+
+    //handle the search bar
     @Override
     public boolean onQueryTextSubmit(String query) {
         mStatusView = (TextView) findViewById(R.id.searchShow);
@@ -373,17 +360,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onQueryTextChange(String newText) {
         return false;
     }
-
-
-   /* public void geoLocate(View v) throws IOException{
-        Geocoder gc = new Geocoder(this);
-
-        String location
-        List<Address> list = gc.getFromLocation("Warren Lecture Hall", 1);
-
-    }
- */
-
 
 
 }
