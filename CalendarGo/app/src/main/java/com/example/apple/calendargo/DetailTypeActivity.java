@@ -36,6 +36,12 @@ public class DetailTypeActivity extends AppCompatActivity {
         String[] currEvent = getIntent().getExtras().getStringArray("currEvent");
         String[] date = currEvent[2].split("-");
 
+        if(date[1].length() == 1)
+            date[1] = "0" + date[1];
+
+        if(date[0].length() == 1)
+            date[0] = "0" + date[0];
+
         organizer.setText(currEvent[0]);
         eventName.setText(currEvent[1]);
         month.setText(date[0]);

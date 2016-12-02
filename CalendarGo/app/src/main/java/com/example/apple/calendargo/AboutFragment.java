@@ -15,16 +15,15 @@ import android.widget.Button;
  */
 
 public class AboutFragment extends Fragment implements View.OnClickListener {
+
     @Nullable
-
     @Override
-
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceStates) {
 
         View v = inflater.inflate(R.layout.about, container, false);
 
+        // enable event handling for this xml button
         Button b6 = (Button) v.findViewById(R.id.button6);
-
         b6.setOnClickListener(this);
 
         return v;
@@ -39,6 +38,8 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Bundle args = new Bundle();
                 args.putBoolean("hasLoggedIn", MainActivity.hasLoggedIn);
+
+                // cancel button goes back to settings page
                 Fragment newFragment = new MoreFragment();
                 newFragment.setArguments(args);
 
